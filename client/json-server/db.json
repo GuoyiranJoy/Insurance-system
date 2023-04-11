@@ -1,0 +1,60 @@
+{
+  "insurance": [
+    {
+      "id": 1,
+      "insur_id": 1,
+      "company": "光大永明(寿)",
+      "insurance_cname": "大物安居客肯定会尽快才能聊",
+      "insurance_sname": "爱看对",
+      "code": 42,
+      "main_or_vice": 0,
+      "param_type": 42,
+      "insurance_type": 42,
+      "start_sale_time": 8589463552,
+      "stop_sale_time": 8589463552,
+      "remark": 42,
+      "common_year": "5"
+    },
+    {
+      "id": 2,
+      "insur_id": 2,
+      "company": "光大永明(寿)",
+      "insurance_cname": "请问好快的严酷的哈金",
+      "insurance_sname": "爱绝就",
+      "code": 42,
+      "main_or_vice": 0,
+      "param_type": 42,
+      "insurance_type": 42,
+      "start_sale_time": 8589463552,
+      "stop_sale_time": 8589463552,
+      "remark": 42,
+      "common_year": "10"
+    }
+  ],
+  "companyOptions": [
+    {
+      "value": 1,
+      "label": "工银安盛(寿)"
+    },
+    {
+      "value": 2,
+      "label": "光大永明(寿)"
+    },
+    {
+      "value": 3,
+      "label": "和谐健康(寿)"
+    },
+    {
+      "value": 4,
+      "label": "恒大人寿(寿)"
+    },
+    {
+      "value": 5,
+      "label": "瑞泰人寿(寿)"
+    },
+    {
+      "value": 6,
+      "label": "泰康养老(寿)"
+    }
+  ]
+}
