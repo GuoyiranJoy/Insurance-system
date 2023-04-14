@@ -26,7 +26,7 @@ const contentRouter = [
     ),
   },
   {
-    path: "/query-or-import-agency-insurance-rate",
+    path: "/import-agency-insurance-rate",
     component: lazy(() =>
       import(
         "../components/agency-insurance-rate/query-or-import/QueryImportAgency"

@@ -4,7 +4,7 @@ import { HiLockClosed, HiOutlineUser } from "react-icons/hi";
 import { useAuth } from "../AuthProvider";
 import { Input } from "./Input";
 
-const LoginCard = () => {
+const LoginCard = ({ changeToRegCard }) => {
   const { onLogin } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +27,8 @@ const LoginCard = () => {
         name={"username"}
         icon={<HiOutlineUser className="absolute ml-3 text-slate-600" />}
         type="text"
-        placeholder={"请输入用户名"}
+        placeholder={"用户名"}
+        validate={true}
         value={username}
         handleChange={(e) => setUsername(e.target.value)}
       />
@@ -36,7 +37,8 @@ const LoginCard = () => {
         name={"password"}
         icon={<HiLockClosed className="absolute ml-3 text-slate-600" />}
         type="password"
-        placeholder={"请输入密码"}
+        placeholder={"密码"}
+        validate={true}
         value={password}
         handleChange={(e) => setPassword(e.target.value)}
       />
@@ -50,6 +52,15 @@ const LoginCard = () => {
       >
         <span className={`${isLogging ? "opacity-0" : ""}`}>{"登 录"}</span>
       </button>
+      <p className="text-sm self-end">
+        没有账号？
+        <span
+          className="text-blue-500 underline hover:cursor-pointer"
+          onClick={changeToRegCard}
+        >
+          去注册
+        </span>
+      </p>
     </form>
   );
 };

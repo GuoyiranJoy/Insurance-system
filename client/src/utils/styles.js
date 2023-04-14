@@ -2,7 +2,7 @@ export const inputStyle =
   "leading-5 w-full py-2 px-3 pl-8 border-2 border-[#E1E7E9] text-slate-700 rounded shadow-sm focus:outline-none focus:ring focus:ring-indigo-200 focus:border-indigo-300";
 
 export const errorInputStyle =
-  "border-rose-400 focus:ring-rose-200 focus:border-rose-400";
+  " placeholder:text-red-500 border-rose-300 focus:ring-rose-200 focus:border-rose-400";
 
 export const buttonStyle =
   "bg-white border border-gray-300 text-gray-600 px-6 py-1 rounded";

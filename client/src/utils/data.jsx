@@ -14,7 +14,7 @@ export const navItems = [
   {
     id: 2,
     name: "代理险种费用率导入",
-    route: "query-or-import-agency-insurance-rate",
+    route: "import-agency-insurance-rate",
     icon: <HiSearch />,
   },
   {

@@ -30,7 +30,14 @@ const ContentCard = () => {
           {"注 册"}
         </button>
       </nav>
-      {loginShow && <LoginCard />}
+      {loginShow && (
+        <LoginCard
+          changeToRegCard={() => {
+            setLoginShow(false);
+            setRegShow(true);
+          }}
+        />
+      )}
       {regShow && <RegisterCard />}
     </div>
   );
