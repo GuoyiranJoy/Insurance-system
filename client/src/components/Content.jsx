@@ -17,8 +17,8 @@ const Content = () => {
               key={i}
               path={item.path}
               element={
-                <Suspense fallback={<Loading/>}>
-                  <item.component />
+                <Suspense fallback={<Loading />}>
+                  <item.element />
                 </Suspense>
               }
             />

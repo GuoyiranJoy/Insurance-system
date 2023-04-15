@@ -20,10 +20,10 @@ function App() {
                 <Suspense fallback={<Loading />}>
                   {item.path === "main/*" ? (
                     <ProtectedRoute>
-                      <item.component />
+                      <item.element />
                     </ProtectedRoute>
                   ) : (
-                    <item.component />
+                    <item.element />
                   )}
                 </Suspense>
               }

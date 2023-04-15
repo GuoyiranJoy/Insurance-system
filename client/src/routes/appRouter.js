@@ -3,15 +3,15 @@ import { lazy } from "react";
 const appRouter = [
   {
     path: "main/*",
-    component: lazy(() => import("../pages/Main")),
+    element: lazy(() => import("../pages/Main")),
   },
   {
     path: "login",
-    component: lazy(() => import("../pages/Login")),
+    element: lazy(() => import("../pages/Login")),
   },
   {
     path: "*",
-    component: lazy(() => import("../components/NotFound")),
+    element: lazy(() => import("../components/NotFound")),
   },
 ];
 
