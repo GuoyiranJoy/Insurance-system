@@ -6,7 +6,7 @@ import {
   companyTypeOptions,
   insuranceOptions,
   insuranceTypeOptions,
-  paramsDiffOptions,
+  paramTypeOptions,
   rateParamsOptions,
   sellingOptions,
   typeOrDiffsOptions,

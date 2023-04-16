@@ -15,3 +15,6 @@ export const createInputStyle =
 
 export const querySelectStyle =
   "py-0.5 rounded border-solid border-[1px] border-[#D9D9D9] disabled:cursor-not-allowed disabled:bg-[#E7E8EA]";
+
+export const editSelectStyle =
+  "flex-1 py-0.5 rounded border-solid border-[1px] border-[#D9D9D9] disabled:cursor-not-allowed disabled:bg-[#E7E8EA]";

@@ -6,15 +6,17 @@ import { Input } from "./Input";
 
 const LoginCard = ({ changeToRegCard }) => {
   const { onLogin } = useAuth();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLogging, setIsLogging] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(username, password);
+    // console.log(username, password);
     setIsLogging(true);
-    onLogin();
+    await onLogin(username, password);
+    setIsLogging(false);
   };
 
   return (

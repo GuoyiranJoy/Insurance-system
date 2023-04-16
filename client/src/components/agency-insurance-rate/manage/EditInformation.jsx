@@ -1,7 +1,17 @@
+import { DatePicker, Space, Table, Tabs } from "antd";
 import React, { useState } from "react";
-import { Table, Space } from "antd";
-import { masterOptions } from "../../../utils/options";
-import { buttonStyle, querySelectStyle } from "../../../utils/styles";
+import {
+  insuranceTypeOptions,
+  masterOptions,
+  paramTypeOptions,
+} from "../../../utils/options";
+import {
+  buttonStyle,
+  createInputStyle,
+  editSelectStyle,
+} from "../../../utils/styles";
+const { RangePicker } = DatePicker;
+import dayjs from "dayjs";
 
 const columns = [
   {
@@ -27,27 +37,61 @@ const columns = [
 
 const dataSource = [
   {
-    annual: "1",
-    illustrate: "胡彦斌",
+    annual: 5,
+    illustrate: "",
   },
 ];
 
 const EditInformation = ({ record }) => {
+  console.log(record);
   const [newRecord, setNewRecord] = useState({ ...record });
+
+  const {
+    company,
+    code,
+    main_or_vice,
+    insurance_type,
+    insurance_cname,
+    insurance_sname,
+    param_type,
+    start_sale_time,
+    stop_sale_time,
+    remark,
+  } = record;
+
+  const items = [
+    {
+      key: "1",
+      label: `险种明细`,
+    },
+    {
+      key: "2",
+      label: `核佣费率列表`,
+    },
+  ];
+
   return (
     <div className="flex flex-col gap-2">
+      <Tabs
+        defaultActiveKey="1"
+        items={items}
+        type="card"
+        style={{
+          marginBottom: -14,
+        }}
+      />
       <div className="flex gap-2 items-center">
         <p>保险公司</p>
-        <p className="flex-1 py-1 font-semibold">{record.company}</p>
+        <p className="flex-1 py-1 font-semibold">{company}</p>
       </div>
       <div className="flex gap-2 items-center">
         <p>主&ensp;/附约</p>
         <select
-          defaultValue={record.master}
+          defaultValue={main_or_vice}
           onChange={(e) => {
             setNewRecord((pre) => ({ ...pre, master: +e.target.value }));
           }}
-          className={querySelectStyle}
+          className={editSelectStyle}
         >
           {masterOptions.map(({ value, name }) => (
             <option key={value} value={value}>
@@ -58,58 +102,49 @@ const EditInformation = ({ record }) => {
       </div>
       <div className="flex gap-2 items-center">
         <p>险种代码</p>
-        <input
-          className="border border-gray-300 border-solid rounded flex-1"
-          type="text"
-          name=""
-          id=""
-        />
+        <input className={createInputStyle} type="text" value={code} />
       </div>
       <div className="flex gap-2 items-center">
         <p>险种类别</p>
         <select
-          className="border border-gray-300 border-solid rounded outline-none flex-1 py-1"
+          defaultValue={insurance_type}
+          className={editSelectStyle}
           name=""
           id=""
         >
-          <option value="">全部</option>
+          {insuranceTypeOptions.length &&
+            insuranceTypeOptions.map(({ value, name }) => (
+              <option key={value} value={value}>
+                {name}
+              </option>
+            ))}
         </select>
       </div>
       <div className="flex gap-2 items-center">
         <p>险种全称</p>
         <input
-          className="border border-gray-300 border-solid rounded flex-1"
+          className={createInputStyle}
           type="text"
-          name=""
-          id=""
+          value={insurance_cname}
         />
       </div>
       <div className="flex gap-2 items-center">
         <p>险种简称</p>
         <input
-          className="border border-gray-300 border-solid rounded flex-1"
+          className={createInputStyle}
           type="text"
-          name=""
-          id=""
+          value={insurance_sname}
         />
-        <label htmlFor="">
-          <input type="checkbox" name="insurance-code" id="insurance-code" />
-          费率同步主约
-        </label>
       </div>
       <div className="flex gap-2 items-center">
         <p>参数区别</p>
-        <select
-          className="border border-gray-300 border-solid rounded outline-none flex-1 py-1"
-          name=""
-          id=""
-        >
-          <option value="">全部</option>
+        <select className={editSelectStyle} defaultValue={param_type}>
+          {paramTypeOptions.map(({ value, name }) => (
+            <option key={value} value={value}>
+              {name}
+            </option>
+          ))}
         </select>
-        <label htmlFor="">
-          <input type="checkbox" name="insurance-code" id="insurance-code" />
-          费率同步首年
-        </label>
       </div>
       <div className="flex justify-between items-center">
         <p className="font-semibold">交费年期一览表</p>
@@ -121,6 +156,17 @@ const EditInformation = ({ record }) => {
         pagination={false}
         size="small"
       />
+      <div className="flex gap-2 items-center">
+        <p>销售期间</p>
+        <RangePicker
+          defaultValue={[dayjs(start_sale_time), dayjs(stop_sale_time)]}
+          style={{ flex: 1 }}
+        />
+      </div>
+      <div className="flex gap-2 items-center">
+        <p>备&emsp;&emsp;注</p>
+        <input className={createInputStyle} type="text" value={remark} />
+      </div>
     </div>
   );
 };

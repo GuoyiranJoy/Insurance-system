@@ -34,21 +34,21 @@ export const rateParamsOptions = exportRateFields.map((_) => ({
   label: _.name,
 }));
 
-export const paramsDiffOptions = [
+export const paramTypeOptions = [
   { value: 1, name: "全部" },
-  { value: 2, name: "一般险种" },
-  { value: 3, name: "团体险种" },
-  { value: 4, name: "卡单险种" },
-  { value: 5, name: "车险险种" },
-  { value: 6, name: "财险险种" },
-  { value: 7, name: "自营网络平台险种" },
-  { value: 8, name: "第三方网络平台险种" },
+  { value: 0, name: "一般险种" },
+  { value: 11, name: "团体险种" },
+  { value: 12, name: "卡单险种" },
+  { value: 13, name: "车险险种" },
+  { value: 14, name: "财险险种" },
+  { value: 98, name: "自营网络平台险种" },
+  { value: 99, name: "第三方网络平台险种" },
 ];
 
 export const masterOptions = [
-  { value: 0, name: "全部" },
-  { value: 1, name: "主约" },
-  { value: 2, name: "附约" },
+  { value: 2, name: "全部" },
+  { value: 0, name: "主约" },
+  { value: 1, name: "附约" },
 ];
 
 export const sellingOptions = [

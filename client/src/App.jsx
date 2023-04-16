@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "./components/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Loading from "./components/common/Loading";
@@ -30,7 +29,6 @@ function App() {
             />
           ))}
         </Routes>
-        <ToastContainer className="mt-12" theme="light" />
       </div>
     </AuthProvider>
   );

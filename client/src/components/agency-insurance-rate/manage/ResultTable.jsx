@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MyButton from "../../common/MyButton";
 import EditInformation from "./EditInformation";
+import { insuranceTypeOptions } from "../../../utils/options";
 
 const ResultTable = ({ data, loading, getInsurance }) => {
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -61,6 +62,8 @@ const ResultTable = ({ data, loading, getInsurance }) => {
       title: "险种类别",
       key: "insurance_type",
       dataIndex: "insurance_type",
+      render: (record) =>
+        insuranceTypeOptions.filter((_) => record === _.value)[0].name,
     },
     {
       title: "启售日",

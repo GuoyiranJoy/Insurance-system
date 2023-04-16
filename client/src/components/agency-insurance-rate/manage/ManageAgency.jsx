@@ -7,7 +7,7 @@ import { mockCompanyOptions } from "../../../mock/mockData";
 import {
   companyTypeOptions,
   masterOptions,
-  paramsDiffOptions,
+  paramTypeOptions,
   sellingOptions,
 } from "../../../utils/options";
 import {
@@ -293,7 +293,7 @@ const ManageAgency = () => {
                 className={`${querySelectStyle}  flex-1`}
                 disabled={!includedConditions.isParamsDiffIncluded}
               >
-                {paramsDiffOptions.map(({ value, name }) => (
+                {paramTypeOptions.map(({ value, name }) => (
                   <option key={value} value={value}>
                     {name}
                   </option>

@@ -1,8 +1,8 @@
 import { AiFillCar } from "react-icons/ai";
-import { HiSearch } from "react-icons/hi";
 import { IoMdDocument } from "react-icons/io";
 import { RiMoneyCnyCircleFill } from "react-icons/ri";
 import { SiHandshake } from "react-icons/si";
+import { TbDatabaseImport } from "react-icons/tb";
 
 export const navItems = [
   {
@@ -15,7 +15,7 @@ export const navItems = [
     id: 2,
     name: "代理险种费用率导入",
     route: "import-agency-insurance-rate",
-    icon: <HiSearch />,
+    icon: <TbDatabaseImport />,
   },
   {
     id: 3,
