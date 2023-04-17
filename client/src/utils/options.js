@@ -15,18 +15,18 @@ export const exportFields = [
   { key: 13, name: "常用年期", label: "years" },
 ];
 export const exportRateFields = [
-  { key: 1, name: "首/续年佣金" },
-  { key: 2, name: "销售奖金" },
-  { key: 3, name: "续年度服务津贴" },
-  { key: 4, name: "标准保费折标" },
-  { key: 5, name: "月度奖金" },
-  { key: 6, name: "特别奖金换算" },
-  { key: 7, name: "保险公司继续率换算" },
-  { key: 8, name: "代理合同佣金" },
-  { key: 9, name: "核发首/续年佣金" },
-  { key: 10, name: "内部标准保费折标" },
-  { key: 11, name: "CFYC" },
-  { key: 12, name: "继续率换算系数" },
+  { key: 101, name: "首/续年佣金" },
+  { key: 102, name: "销售奖金" },
+  { key: 2, name: "续年度服务津贴" },
+  { key: 6, name: "标准保费折标" },
+  { key: 8, name: "月度奖金" },
+  { key: 4, name: "特别奖金换算" },
+  { key: 13, name: "保险公司继续率换算" },
+  { key: 0, name: "代理合同佣金" },
+  { key: 1, name: "核发首/续年佣金" },
+  { key: 11, name: "内部标准保费折标" },
+  { key: 12, name: "CFYC" },
+  { key: 5, name: "继续率换算系数" },
 ];
 
 export const rateParamsOptions = exportRateFields.map((_) => ({

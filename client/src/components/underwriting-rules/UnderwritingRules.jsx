@@ -8,18 +8,11 @@ import {
   mockCompanyOptions,
 } from "../../mock/mockData";
 import { buttonStyle, queryInputStyle } from "../../utils/styles";
-import { generateConditions } from "./services";
+import AddModal from "./AddModal";
 import ResultTable from "./ResultTable";
 const { RangePicker } = DatePicker;
 
 const UnderwritingRules = () => {
-  const [includedConditions, setIncludedConditions] = useState({
-    isCompanyIncluded: false,
-    isBranchIncluded: false,
-    isPublishedPeriodIncluded: false,
-    isTitleIncluded: false,
-  });
-
   const [isEveryCompanySelected, setIsEveryCompanySelected] = useState(false);
   const [isEveryBranchSelected, setIsEveryBranchSelected] = useState(false);
   const [queryConditions, setQueryConditions] = useState({
@@ -30,13 +23,13 @@ const UnderwritingRules = () => {
   });
   const [queryResult, setQueryResult] = useState([]);
 
+  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [isTableLoading, setIsTableLoading] = useState(false);
 
   const handleQuery = (e) => {
     e.preventDefault();
     setIsTableLoading(true);
     console.log(queryConditions);
-    const conditions = generateConditions(queryConditions, includedConditions);
     console.log(conditions);
     setTimeout(() => {
       setQueryResult(fakeData1);
@@ -101,20 +94,7 @@ const UnderwritingRules = () => {
       <form className="w-full py-4 pb-8 gap-4 flex flex-col justify-between">
         {/* Row 1 */}
         <div className="flex items-center gap-2">
-          <label htmlFor="insurance-company">
-            保险公司
-            <input
-              type="checkbox"
-              name="insurance-company"
-              id="insurance-company"
-              onChange={() => {
-                setIncludedConditions((pre) => ({
-                  ...pre,
-                  isCompanyIncluded: !pre.isCompanyIncluded,
-                }));
-              }}
-            />
-          </label>
+          <label htmlFor="insurance-company">保险公司</label>
           <Space
             style={{
               flex: "1",
@@ -122,7 +102,6 @@ const UnderwritingRules = () => {
             direction="vertical"
           >
             <Select
-              disabled={!includedConditions.isCompanyIncluded}
               mode="multiple"
               allowClear
               style={{
@@ -156,24 +135,10 @@ const UnderwritingRules = () => {
           {/* Left */}
           <div className="flex-1 flex flex-col gap-4">
             <div className="flex items-center gap-2 py-1">
-              <label htmlFor="insurance-name">
-                标&emsp;&emsp;题
-                <input
-                  type="checkbox"
-                  name="insurance-name"
-                  id="insurance-name"
-                  onChange={() => {
-                    setIncludedConditions((pre) => ({
-                      ...pre,
-                      isTitleIncluded: !pre.isTitleIncluded,
-                    }));
-                  }}
-                />
-              </label>
+              <label htmlFor="insurance-name">标&emsp;&emsp;题</label>
               <input
                 className={queryInputStyle}
                 type="text"
-                disabled={!includedConditions.isTitleIncluded}
                 onChange={(e) => {
                   setQueryConditions((pre) => ({
                     ...pre,
@@ -186,22 +151,8 @@ const UnderwritingRules = () => {
           {/* Right */}
           <div className="flex-1 flex flex-col gap-4">
             <div className="flex items-center gap-2">
-              <label htmlFor="start-selling">
-                发布时间
-                <input
-                  type="checkbox"
-                  name="start-selling"
-                  id="start-selling"
-                  onChange={() => {
-                    setIncludedConditions((pre) => ({
-                      ...pre,
-                      isPublishedPeriodIncluded: !pre.isPublishedPeriodIncluded,
-                    }));
-                  }}
-                />
-              </label>
+              <label htmlFor="start-selling">发布时间</label>
               <RangePicker
-                disabled={!includedConditions.isPublishedPeriodIncluded}
                 style={{ flex: 1 }}
                 locale={locale}
                 onChange={(value) => {
@@ -218,20 +169,7 @@ const UnderwritingRules = () => {
 
         {/* Row 3 */}
         <div className="flex items-center gap-2">
-          <label htmlFor="branch">
-            分支机构
-            <input
-              type="checkbox"
-              name="branch"
-              id="branch"
-              onChange={() => {
-                setIncludedConditions((pre) => ({
-                  ...pre,
-                  isBranchIncluded: !pre.isBranchIncluded,
-                }));
-              }}
-            />
-          </label>
+          <label htmlFor="branch">分支机构</label>
           <Space
             style={{
               flex: "1",
@@ -239,7 +177,6 @@ const UnderwritingRules = () => {
             direction="vertical"
           >
             <Select
-              disabled={!includedConditions.isBranchIncluded}
               mode="multiple"
               allowClear
               style={{
@@ -273,6 +210,7 @@ const UnderwritingRules = () => {
             className={buttonStyle}
             onClick={(e) => {
               e.preventDefault();
+              setIsAddModalVisible(true);
             }}
           >
             新增一笔
@@ -287,6 +225,11 @@ const UnderwritingRules = () => {
         </div>
       </form>
       <ResultTable loading={isTableLoading} data={queryResult} />
+      <AddModal
+        visibility={isAddModalVisible}
+        setIsModalVisible={setIsAddModalVisible}
+        // getRules={getRules}
+      />
     </div>
   );
 };

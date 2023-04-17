@@ -19,20 +19,9 @@ import AddModal from "./AddModal";
 import ExportModal from "./ExportModal";
 import ExportRateModal from "./ExportRateModal";
 import ResultTable from "./ResultTable";
-import { generateConditions as generateCondition } from "./services";
 const { RangePicker } = DatePicker;
 
 const ManageAgency = () => {
-  const [includedConditions, setIncludedConditions] = useState({
-    isNameIncluded: false,
-    isCodeIncluded: false,
-    isSellingStatusIncluded: false,
-    isMasterIncluded: false,
-    isParamsDiffIncluded: false,
-    isSellingStartPeriodIncluded: false,
-    isSellingEndPeriodIncluded: false,
-  });
-
   const [isExportModalVisible, setIsExportModalVisible] = useState(false);
   const [isExportRateModalVisible, setIsExportRateModalVisible] =
     useState(false);
@@ -57,10 +46,9 @@ const ManageAgency = () => {
   const handleQuery = (e) => {
     e?.preventDefault();
     setIsTableLoading(true);
-    const condition = generateCondition(queryConditions, includedConditions);
     axios({
       method: "get",
-      url: `http://localhost:8080/insurance?${condition}`,
+      url: `http://localhost:8080/insurance?${queryConditions}`,
     }).then((res) => {
       setQueryResult(res.data);
       setIsTableLoading(false);
@@ -109,10 +97,7 @@ const ManageAgency = () => {
       <form className="w-full py-4 pb-8 gap-4 flex flex-col justify-between">
         {/* Row 1 */}
         <div className="flex items-center gap-2">
-          <label htmlFor="insurance-company">
-            保险公司
-            <input type="checkbox" id="insurance-company" checked disabled />
-          </label>
+          <label htmlFor="insurance-company">保险公司</label>
           <select
             onChange={(e) => {
               setQueryConditions((pre) => ({
@@ -170,24 +155,10 @@ const ManageAgency = () => {
           {/* Left */}
           <div className="flex-1 flex flex-col gap-4">
             <div className="flex items-center gap-2">
-              <label htmlFor="insurance_cname">
-                险种名称
-                <input
-                  type="checkbox"
-                  name="insurance_cname"
-                  id="insurance_cname"
-                  onChange={() => {
-                    setIncludedConditions((pre) => ({
-                      ...pre,
-                      isNameIncluded: !pre.isNameIncluded,
-                    }));
-                  }}
-                />
-              </label>
+              <label htmlFor="insurance_cname">险种名称</label>
               <input
                 className={queryInputStyle}
                 type="text"
-                disabled={!includedConditions.isNameIncluded}
                 onChange={(e) => {
                   setQueryConditions((pre) => ({
                     ...pre,
@@ -196,8 +167,6 @@ const ManageAgency = () => {
                 }}
               />
               <button
-                className="disabled:cursor-not-allowed"
-                disabled={!includedConditions.isNameIncluded}
                 onClick={(e) => {
                   e.preventDefault();
                 }}
@@ -207,19 +176,7 @@ const ManageAgency = () => {
             </div>
             <div className="flex-1 flex items-center gap-4">
               <div className="flex-1 flex gap-2">
-                <label htmlFor="selling">
-                  是否停售
-                  <input
-                    type="checkbox"
-                    id="selling"
-                    onChange={() => {
-                      setIncludedConditions((pre) => ({
-                        ...pre,
-                        isSellingStatusIncluded: !pre.isSellingStatusIncluded,
-                      }));
-                    }}
-                  />
-                </label>
+                <label htmlFor="selling">是否停售</label>
                 <select
                   onChange={(e) => {
                     setQueryConditions((pre) => ({
@@ -228,7 +185,6 @@ const ManageAgency = () => {
                     }));
                   }}
                   className={`${querySelectStyle}  flex-1`}
-                  disabled={!includedConditions.isSellingStatusIncluded}
                 >
                   {sellingOptions.map(({ value, name }) => (
                     <option key={value} value={value}>
@@ -238,19 +194,7 @@ const ManageAgency = () => {
                 </select>
               </div>
               <div className="flex-1 flex gap-2">
-                <label htmlFor="main_or_vice">
-                  &emsp;主附约
-                  <input
-                    type="checkbox"
-                    id="main_or_vice"
-                    onChange={() => {
-                      setIncludedConditions((pre) => ({
-                        ...pre,
-                        isMasterIncluded: !pre.isMasterIncluded,
-                      }));
-                    }}
-                  />
-                </label>
+                <label htmlFor="main_or_vice">&emsp;主附约</label>
                 <select
                   onChange={(e) => {
                     setQueryConditions((pre) => ({
@@ -259,7 +203,6 @@ const ManageAgency = () => {
                     }));
                   }}
                   className={`${querySelectStyle}  flex-1`}
-                  disabled={!includedConditions.isMasterIncluded}
                 >
                   {masterOptions.map(({ value, name }) => (
                     <option key={value} value={value}>
@@ -270,19 +213,7 @@ const ManageAgency = () => {
               </div>
             </div>
             <div className="flex-1 flex items-center gap-2">
-              <label htmlFor="params-diff">
-                参数区别
-                <input
-                  type="checkbox"
-                  id="params-diff"
-                  onChange={() => {
-                    setIncludedConditions((pre) => ({
-                      ...pre,
-                      isParamsDiffIncluded: !pre.isParamsDiffIncluded,
-                    }));
-                  }}
-                />
-              </label>
+              <label htmlFor="params-diff">参数区别</label>
               <select
                 onChange={(e) => {
                   setQueryConditions((pre) => ({
@@ -291,7 +222,6 @@ const ManageAgency = () => {
                   }));
                 }}
                 className={`${querySelectStyle}  flex-1`}
-                disabled={!includedConditions.isParamsDiffIncluded}
               >
                 {paramTypeOptions.map(({ value, name }) => (
                   <option key={value} value={value}>
@@ -304,23 +234,10 @@ const ManageAgency = () => {
           {/* Right */}
           <div className="flex-1 flex flex-col gap-4">
             <div className="flex-1 flex items-center gap-2">
-              <label htmlFor="insurance-code">
-                险种代码
-                <input
-                  type="checkbox"
-                  id="insurance-code"
-                  onChange={() => {
-                    setIncludedConditions((pre) => ({
-                      ...pre,
-                      isCodeIncluded: !pre.isCodeIncluded,
-                    }));
-                  }}
-                />
-              </label>
+              <label htmlFor="insurance-code">险种代码</label>
               <input
                 className={queryInputStyle}
                 type="text"
-                disabled={!includedConditions.isCodeIncluded}
                 onKeyUp={(e) => {
                   e.target.value = e.target.value.replace(/[^\w]/gi, "");
                 }}
@@ -332,8 +249,6 @@ const ManageAgency = () => {
                 }}
               />
               <button
-                className="disabled:cursor-not-allowed"
-                disabled={!includedConditions.isCodeIncluded}
                 onClick={(e) => {
                   e.preventDefault();
                 }}
@@ -342,22 +257,8 @@ const ManageAgency = () => {
               </button>
             </div>
             <div className="flex items-center gap-2">
-              <label htmlFor="start-selling">
-                启售期间
-                <input
-                  type="checkbox"
-                  id="start-selling"
-                  onChange={() => {
-                    setIncludedConditions((pre) => ({
-                      ...pre,
-                      isSellingStartPeriodIncluded:
-                        !pre.isSellingStartPeriodIncluded,
-                    }));
-                  }}
-                />
-              </label>
+              <label htmlFor="start-selling">启售期间</label>
               <RangePicker
-                disabled={!includedConditions.isSellingStartPeriodIncluded}
                 style={{ flex: 1 }}
                 onChange={(value) => {
                   const period = value?.map((_) => _.format("YYYY-MM-DD"));
@@ -369,22 +270,8 @@ const ManageAgency = () => {
               />
             </div>
             <div className="flex items-center gap-2">
-              <label htmlFor="stop-selling">
-                停售期间
-                <input
-                  type="checkbox"
-                  id="stop-selling"
-                  onChange={() => {
-                    setIncludedConditions((pre) => ({
-                      ...pre,
-                      isSellingEndPeriodIncluded:
-                        !pre.isSellingEndPeriodIncluded,
-                    }));
-                  }}
-                />
-              </label>
+              <label htmlFor="stop-selling">停售期间</label>
               <RangePicker
-                disabled={!includedConditions.isSellingEndPeriodIncluded}
                 style={{ flex: 1 }}
                 onChange={(value) => {
                   const period = value?.map((_) => _.format("YYYY-MM-DD"));

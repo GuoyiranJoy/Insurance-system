@@ -6,16 +6,9 @@ import {
   mockCompanyOptions,
 } from "../../mock/mockData";
 import { buttonStyle, queryInputStyle } from "../../utils/styles";
-import { generateConditions } from "./services";
 import ResultTable from "./ResultTable";
 
 const CarInsuranceRate = () => {
-  const [includedConditions, setIncludedConditions] = useState({
-    isCompanyIncluded: false,
-    isBranchIncluded: false,
-    isNameIncluded: false,
-  });
-
   const [isEveryCompanySelected, setIsEveryCompanySelected] = useState(false);
   const [isEveryBranchSelected, setIsEveryBranchSelected] = useState(false);
   const [queryConditions, setQueryConditions] = useState({
@@ -31,7 +24,6 @@ const CarInsuranceRate = () => {
     e.preventDefault();
     setIsTableLoading(true);
     console.log(queryConditions);
-    const conditions = generateConditions(queryConditions, includedConditions);
     console.log(conditions);
     setTimeout(() => {
       setQueryResult(fakeData1);
@@ -96,20 +88,7 @@ const CarInsuranceRate = () => {
       <form className="w-full py-4 pb-8 gap-4 flex flex-col justify-between">
         {/* Row 1 */}
         <div className="flex items-center gap-2">
-          <label htmlFor="insurance-company">
-            保险公司
-            <input
-              type="checkbox"
-              name="insurance-company"
-              id="insurance-company"
-              onChange={() => {
-                setIncludedConditions((pre) => ({
-                  ...pre,
-                  isCompanyIncluded: !pre.isCompanyIncluded,
-                }));
-              }}
-            />
-          </label>
+          <label htmlFor="insurance-company">保险公司</label>
           <Space
             style={{
               flex: "1",
@@ -117,7 +96,6 @@ const CarInsuranceRate = () => {
             direction="vertical"
           >
             <Select
-              disabled={!includedConditions.isCompanyIncluded}
               mode="multiple"
               allowClear
               style={{
@@ -148,20 +126,7 @@ const CarInsuranceRate = () => {
 
         {/* Row 2 */}
         <div className="flex items-center gap-2">
-          <label htmlFor="branch">
-            分支机构
-            <input
-              type="checkbox"
-              name="branch"
-              id="branch"
-              onChange={() => {
-                setIncludedConditions((pre) => ({
-                  ...pre,
-                  isBranchIncluded: !pre.isBranchIncluded,
-                }));
-              }}
-            />
-          </label>
+          <label htmlFor="branch">分支机构</label>
           <Space
             style={{
               flex: "1",
@@ -169,7 +134,6 @@ const CarInsuranceRate = () => {
             direction="vertical"
           >
             <Select
-              disabled={!includedConditions.isBranchIncluded}
               mode="multiple"
               allowClear
               style={{
@@ -201,24 +165,10 @@ const CarInsuranceRate = () => {
         {/* Row 3 */}
         <div className="flex items-center gap-2">
           <div className="flex-1 flex items-center gap-2 py-1">
-            <label htmlFor="name">
-              费率名称
-              <input
-                type="checkbox"
-                name="name"
-                id="name"
-                onChange={() => {
-                  setIncludedConditions((pre) => ({
-                    ...pre,
-                    isNameIncluded: !pre.isNameIncluded,
-                  }));
-                }}
-              />
-            </label>
+            <label htmlFor="name">费率名称</label>
             <input
               className={queryInputStyle}
               type="text"
-              disabled={!includedConditions.isNameIncluded}
               onChange={(e) => {
                 setQueryConditions((pre) => ({
                   ...pre,
