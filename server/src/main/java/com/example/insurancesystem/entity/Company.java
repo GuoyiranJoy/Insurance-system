@@ -28,7 +28,4 @@ public class Company implements Serializable {
 
     private String companyName;
 
-    private String branchList;
-
-
 }

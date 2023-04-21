@@ -14,23 +14,19 @@ import lombok.Setter;
  * </p>
  *
  * @author 郭怡然
- * @since 2023-04-07
+ * @since 2023-04-12
  */
 @Getter
 @Setter
-@ApiModel(value = "User对象", description = "")
-public class User implements Serializable {
+@ApiModel(value = "Branch对象", description = "")
+public class Branch implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @TableId(value = "user_id", type = IdType.AUTO)
-    //用户id
-    private Integer userId;
-    //用户名，必填
-    private String username;
-    //邮箱，仅注册时必填
-    private String email;
-    //密码，必填
-    private String password;
+
+      @TableId(value = "branch_id", type = IdType.AUTO)
+    private Integer branchId;
+
+    private String branchName;
 
 
 }

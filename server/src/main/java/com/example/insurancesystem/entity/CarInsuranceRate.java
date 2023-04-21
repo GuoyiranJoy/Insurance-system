@@ -1,10 +1,14 @@
 package com.example.insurancesystem.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.List;
+
+import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -20,35 +24,38 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("car_insurance_rate")
+@TableName(autoResultMap = true)
 @ApiModel(value = "CarInsuranceRate对象", description = "")
 public class CarInsuranceRate implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      @TableId(value = "car_insur_id", type = IdType.AUTO)
+    @TableId(value = "car_insur_id", type = IdType.AUTO)
+    //非必填
     private Integer carInsurId;
 
     private String rateName;
+    @TableField(typeHandler = FastjsonTypeHandler.class)
 
-    private String insurCompanyName;
+    private List<String> companyNameList;
 
     private String insurTypeName;
 
     @ApiModelProperty("车辆类型")
     private String vehicleType;
+    @TableField(typeHandler = FastjsonTypeHandler.class)
 
-    private String branch;
+    private List<String> branchNameList;
 
-    private LocalDateTime insurStarttime;
+    private LocalDate insurStarttime;
 
-    private LocalDateTime insurEndtime;
+    private LocalDate insurEndtime;
 
     @ApiModelProperty("进项")
-    private Integer commissionRateIn;
+    private double commissionRateIn;
 
     @ApiModelProperty("支项")
-    private Integer commissionRateOut;
+    private double commissionRateOut;
 
     @ApiModelProperty("是否审核")
     private Boolean isChecked;

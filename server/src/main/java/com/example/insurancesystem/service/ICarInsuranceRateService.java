@@ -3,6 +3,8 @@ package com.example.insurancesystem.service;
 import com.example.insurancesystem.entity.CarInsuranceRate;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ICarInsuranceRateService extends IService<CarInsuranceRate> {
 
+    Object queryCarInsuranceRate(List<String> companyNames, List<String> branchNames, String rateName);
 }

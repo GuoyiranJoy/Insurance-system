@@ -1,8 +1,10 @@
 package com.example.insurancesystem.service;
 
+import com.example.insurancesystem.dto.RuleForQuery;
 import com.example.insurancesystem.entity.CheckInsurRule;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -15,5 +17,5 @@ import java.util.List;
  */
 public interface ICheckInsurRuleService extends IService<CheckInsurRule> {
 
-    Object queryInsurRule(List<String> companyNames, List<String> branchNames, String from, String to, String name);
+    Object queryInsurRule(RuleForQuery ruleForQuery);
 }

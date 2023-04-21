@@ -1,0 +1,8 @@
+<configuration>
+    <!-- Other MyBatis configurations -->
+
+    <!-- Type Handlers configuration -->
+    <typeHandlers>
+        <typeHandler handler="com.example.insurancesystem.typehandler.ListTypeHandler" javaType="java.util.List" jdbcType="JSON" />
+    </typeHandlers>
+</configuration>

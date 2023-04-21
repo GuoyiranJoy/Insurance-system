@@ -25,7 +25,7 @@ public class ParamDiff implements Serializable {
 
       private Integer id;
 
-    private String programName;
+    private String paramDiffName;
 
     private String description;
 

@@ -24,8 +24,8 @@ public class ResultInfo {
         return new ResultInfo(code, msg, null);
     }
 
-    public static ResultInfo error() {
-        return new ResultInfo(Constants.CODE_500, "系统错误", null);
+    public static ResultInfo error(String msg) {
+        return new ResultInfo(Constants.CODE_500,msg , null);
     }
 
 }

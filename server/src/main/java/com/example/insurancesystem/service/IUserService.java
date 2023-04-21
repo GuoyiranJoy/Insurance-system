@@ -1,7 +1,10 @@
 package com.example.insurancesystem.service;
 
+import com.example.insurancesystem.common.ResultInfo;
 import com.example.insurancesystem.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * <p>
@@ -13,4 +16,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUserService extends IService<User> {
 
+    ResultInfo register(User user);
+
+    ResultInfo isLogin(HttpSession session);
+
+    ResultInfo login(User user);
 }

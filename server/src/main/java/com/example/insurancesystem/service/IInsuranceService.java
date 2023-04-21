@@ -1,8 +1,13 @@
 package com.example.insurancesystem.service;
 
+import com.example.insurancesystem.common.ResultInfo;
 import com.example.insurancesystem.dto.InsuranceForQuery;
 import com.example.insurancesystem.entity.Insurance;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +19,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IInsuranceService extends IService<Insurance> {
 
-    Object queryInsurance(InsuranceForQuery param);
+    ResultInfo queryInsurance(InsuranceForQuery param);
+
+    void exportBlank(List<Integer> indexes, String filePath) throws IOException;
+
+    List<Insurance> imp(MultipartFile file) throws IOException;
 }

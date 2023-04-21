@@ -3,30 +3,24 @@ package com.example.insurancesystem.controller;
 
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.insurancesystem.common.ResultInfo;
 import com.example.insurancesystem.dto.InsuranceForQuery;
-import com.example.insurancesystem.entity.CommissionRate;
 import com.example.insurancesystem.entity.Insurance;
-import com.example.insurancesystem.mapper.CommissionRateMapper;
-import com.example.insurancesystem.service.ICarInsuranceRateService;
-import com.example.insurancesystem.service.ICheckInsurRuleService;
-import com.example.insurancesystem.service.ICommissionRateService;
 import com.example.insurancesystem.service.IInsuranceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * <p>
- *  前端控制器
+ *  险种控制器
  * </p>
  *
  * @author 郭怡然
@@ -39,34 +33,52 @@ public class InsuranceController {
     @Autowired
     IInsuranceService insuranceService;
 
-    //查询某条险种
+    /**
+     * 查询某条险种
+     *
+     * @param param    传入险种查询信息
+     * @return 查询结果
+     */
     @PostMapping("/queryInsurance")
-    public Object queryInsurance(@RequestBody InsuranceForQuery param){
+    public ResultInfo queryInsurance(@RequestBody InsuranceForQuery param){
 
         return insuranceService.queryInsurance(param);
 
     }
-
-    //删掉险种
+    /**
+     * 删掉险种
+     *
+     * @param id    险种id
+     * @return 查询结果
+     */
     @PostMapping("/deleteInsurance")
-    public Object deleteInsurance(@RequestParam("id") String id){
+    public ResultInfo deleteInsurance(@RequestParam(value = "id",required = true) String id){
 
-        return insuranceService.removeById(id);
+        return ResultInfo.success(insuranceService.removeById(id));
     }
-
-    //新增一笔
+    /**
+     * 新增一笔
+     *
+     * @param info    某条保险
+     * @return 查询结果
+     */
     @PostMapping("/addInsurance")
-    public Object addInsurance(@RequestBody Insurance info){
+    public ResultInfo addInsurance(@RequestBody Insurance info){
 
-        return insuranceService.saveOrUpdate(info);
+        return ResultInfo.success(insuranceService.saveOrUpdate(info));
 
     }
 
-    //编辑险种
+    /**
+     * 编辑险种
+     *
+     * @param info    某条保险
+     * @return 查询结果
+     */
     @PostMapping("/updateInsurance")
-    public Object updateInsurance(@RequestBody Insurance info){
+    public ResultInfo updateInsurance(@RequestBody Insurance info){
 
-        return insuranceService.updateById(info);
+        return ResultInfo.success(insuranceService.updateById(info));
 
     }
 
@@ -81,6 +93,7 @@ public class InsuranceController {
         ExcelWriter writer = ExcelUtil.getWriter(true);
         // 一次性写出list内的对象到excel，使用默认样式，强制输出标题
         writer.write(list, true);
+//        writer.write(null);
         // 设置浏览器响应的格式
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
         String fileName = URLEncoder.encode("导出险种Excel", "UTF-8");
@@ -90,7 +103,26 @@ public class InsuranceController {
         out.close();
         writer.close();
     }
-
+    /**
+     * 生成导入空模板
+     * @description
+     * @param indexes 包含的字段序号，对应数组 {"insurId", "companyName", "insurFullName", "insurShortName",
+     *      *                 "code", "mainOrVice", "paramDiffName", "insurType", "startSaleTime", "stopSaleTime",
+     *      *                 "remark", "commonYear"};
+     * @param  filePath 文件保存路径
+     */
+    @GetMapping("/exportBlank")
+    public void exportBlank(@RequestParam(value = "indexes",required = true) List<Integer> indexes, @RequestParam(value = "filePath",required = true) String filePath) throws IOException {
+        insuranceService.exportBlank(indexes, filePath);
+    }
+    /**
+     * 导入（批量新增）
+     * @param file 要导入的文件，必填
+     */
+    @PostMapping("/import")
+    public ResultInfo imp(MultipartFile file) throws Exception {
+        return ResultInfo.success(insuranceService.saveOrUpdateBatch(insuranceService.imp(file)));
+    }
 
 }
 

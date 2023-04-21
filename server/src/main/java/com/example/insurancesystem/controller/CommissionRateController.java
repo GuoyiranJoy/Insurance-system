@@ -4,6 +4,7 @@ package com.example.insurancesystem.controller;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.insurancesystem.common.ResultInfo;
 import com.example.insurancesystem.entity.CommissionRate;
 import com.example.insurancesystem.entity.Insurance;
 import com.example.insurancesystem.service.ICommissionRateService;
@@ -17,7 +18,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ *  核佣费率控制器
  * </p>
  *
  * @author 郭怡然
@@ -28,31 +29,41 @@ import java.util.List;
 public class CommissionRateController {
     @Autowired
     ICommissionRateService commissionRateService;
-    //查询某险种的核佣费率列表
+    /**
+     * 查询某险种的核佣费率列表
+     *
+     * @param insurId 险种id
+     */
     @PostMapping("/queryInsurRate")
-    public Object queryInsurRate(@RequestParam("rateId") String rateId){
+    public ResultInfo queryInsurRate(@RequestParam(value = "insurId",required = true) int insurId){
 
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("rateId", rateId);
-        return commissionRateService.list(queryWrapper);
+        queryWrapper.eq("insur_id", insurId);
+        return ResultInfo.success(commissionRateService.list(queryWrapper));
 
     }
-
-    //移除某条核佣费率
+    /**
+     * 移除某条核佣费率
+     *
+     * @param rateId 费率id
+     */
     @PostMapping("/deleteInsurRate")
-    public Object deleteInsurRate(@RequestParam("rateId") String rateId){
+    public ResultInfo deleteInsurRate(@RequestParam(value = "rateId",required = true) int rateId){
 
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("rateId", rateId);
-        return commissionRateService.remove(queryWrapper);
+        queryWrapper.eq("rate_id", rateId);
+        return ResultInfo.success(commissionRateService.remove(queryWrapper));
 
     }
-
-    //新增或编辑费率
+    /**
+     * 新增或编辑核佣费率
+     *
+     * @param commissionRate 核佣费率
+     */
     @PostMapping("/addOrUpdateInsurRate")
-    public Object addOrUpdateInsurRate(@RequestBody CommissionRate commissionRate){
+    public ResultInfo addOrUpdateInsurRate(@RequestBody CommissionRate commissionRate){
 
-        return commissionRateService.saveOrUpdate(commissionRate);
+        return ResultInfo.success(commissionRateService.saveOrUpdate(commissionRate));
     }
 
     /**

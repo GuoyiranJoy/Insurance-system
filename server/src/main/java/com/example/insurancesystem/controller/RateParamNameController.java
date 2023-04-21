@@ -1,8 +1,9 @@
 package com.example.insurancesystem.controller;
 
 
-import com.example.insurancesystem.service.IParamDiffService;
+import com.example.insurancesystem.common.ResultInfo;
 import com.example.insurancesystem.service.IRateParamNameService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- *  前端控制器
+ *  费率参数名称控制器
  * </p>
  *
  * @author 郭怡然
@@ -19,11 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/rate-param-name")
 public class RateParamNameController {
+    @Autowired
     IRateParamNameService rateParamNameService;
-    //费率参数
+    /**
+     * 获取所有费率参数名称
+     */
     @GetMapping("/getRateParamName")
-    public Object getParamTypeParam(){
-        return rateParamNameService.list();
+    public ResultInfo getParamTypeParam(){
+        return ResultInfo.success(rateParamNameService.list());
     }
 }
 
