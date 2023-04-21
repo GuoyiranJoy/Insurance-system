@@ -1,6 +1,5 @@
-import React, { useState } from "react";
 import { Modal } from "antd";
-import axios from "axios";
+import React, { useState } from "react";
 import MyButton from "../common/MyButton";
 import AddInformation from "./AddInformation";
 

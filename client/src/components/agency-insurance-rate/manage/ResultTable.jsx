@@ -1,11 +1,11 @@
 import { Modal, Popconfirm, Space, Table } from "antd";
-import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import api from "../../../api/api";
+import { insuranceTypeOptions } from "../../../utils/options";
 import MyButton from "../../common/MyButton";
 import EditInformation from "./EditInformation";
-import { insuranceTypeOptions } from "../../../utils/options";
 
 const ResultTable = ({ data, loading, getInsurance }) => {
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -16,9 +16,9 @@ const ResultTable = ({ data, loading, getInsurance }) => {
   };
 
   const confirm = (id) => {
-    axios({
+    api({
       method: "delete",
-      url: `http://localhost:8080/insurance/${id}`,
+      url: `/insurance/${id}`,
     }).then((res) => {
       toast.success("删除成功!");
       getInsurance();

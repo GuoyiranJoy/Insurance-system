@@ -1,7 +1,7 @@
 import { Input, InputNumber, Modal, Space, Table } from "antd";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import api from "../../../api/api";
 import { insuranceTypeOptions, masterOptions } from "../../../utils/options";
 import { buttonStyle, createInputStyle } from "../../../utils/styles";
 import MyButton from "../../common/MyButton";
@@ -52,15 +52,13 @@ const AddInformation = ({ setInfo }) => {
 
   useEffect(() => {
     setInfo({ main_or_vice: masterOptions[0]?.value });
-    axios({ method: "get", url: "http://localhost:8080/companyOptions" }).then(
-      (res) => {
-        setCompanyOptions(res.data);
-        setInfo((pre) => ({
-          ...pre,
-          company: res.data[0]?.value,
-        }));
-      }
-    );
+    api({ method: "get", url: "/companyOptions" }).then((res) => {
+      setCompanyOptions(res.data);
+      setInfo((pre) => ({
+        ...pre,
+        company: res.data[0]?.value,
+      }));
+    });
   }, []);
 
   const commYearColumns = [

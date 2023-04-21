@@ -1,7 +1,7 @@
-import axios from "axios";
+import api from "../api/api";
 
 export const UserLogin = (username, password) =>
-  axios({
+  api({
     method: "get",
-    url: `http://localhost:8080/users?username=${username}&password=${password}`,
+    url: `/users?username=${username}&password=${password}`,
   });

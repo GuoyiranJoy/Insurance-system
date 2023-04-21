@@ -1,8 +1,8 @@
-import React, { useState } from "react";
 import { Modal } from "antd";
+import React, { useState } from "react";
+import api from "../../../api/api";
 import MyButton from "../../common/MyButton";
 import AddInformation from "./AddInformation";
-import axios from "axios";
 
 const AddModal = ({ visibility, setIsModalVisible, getInsurance }) => {
   const [loading, setLoading] = useState(false);
@@ -14,9 +14,9 @@ const AddModal = ({ visibility, setIsModalVisible, getInsurance }) => {
 
   const handlePost = () => {
     setLoading(true);
-    axios({
+    api({
       method: "post",
-      url: "http://localhost:8080/insurance",
+      url: "/insurance",
       data: info,
     })
       .then((res) => {

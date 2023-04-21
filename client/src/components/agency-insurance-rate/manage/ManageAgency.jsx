@@ -1,8 +1,8 @@
 import { Checkbox, DatePicker, Divider, Select, Space } from "antd";
-import axios from "axios";
 import React, { useState } from "react";
 import { BiArrowFromBottom } from "react-icons/bi";
 import { HiXMark } from "react-icons/hi2";
+import api from "../../../api/api";
 import { mockCompanyOptions } from "../../../mock/mockData";
 import {
   companyTypeOptions,
@@ -46,9 +46,9 @@ const ManageAgency = () => {
   const handleQuery = (e) => {
     e?.preventDefault();
     setIsTableLoading(true);
-    axios({
+    api({
       method: "get",
-      url: `http://localhost:8080/insurance?${queryConditions}`,
+      url: `/insurance?${queryConditions}`,
     }).then((res) => {
       setQueryResult(res.data);
       setIsTableLoading(false);
@@ -82,9 +82,9 @@ const ManageAgency = () => {
   };
 
   const getInsurance = () => {
-    axios({
+    api({
       method: "get",
-      url: `http://localhost:8080/insurance`,
+      url: `/insurance`,
     }).then((res) => {
       setQueryResult(res.data);
       setIsTableLoading(false);
