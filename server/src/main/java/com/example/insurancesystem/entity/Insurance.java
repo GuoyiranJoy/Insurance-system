@@ -29,7 +29,7 @@ import springfox.documentation.spring.web.json.Json;
 @Setter
 @ApiModel(value = "Insurance对象", description = "")
 @TableName(value = "insurance",autoResultMap = true)
-public class Insurance extends CommissionRate implements Serializable {
+public class Insurance implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

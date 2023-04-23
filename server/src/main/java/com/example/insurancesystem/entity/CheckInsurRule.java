@@ -25,8 +25,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-//@TableName("check_insur_rule")
-@TableName(autoResultMap = true)
+@TableName(value = "check_insur_rule",autoResultMap = true)
 @ApiModel(value = "CheckInsurRule对象", description = "")
 public class CheckInsurRule implements Serializable {
 

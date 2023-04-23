@@ -25,7 +25,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName(autoResultMap = true)
+@TableName(value = "commission_rate",autoResultMap = true)
 @ApiModel(value = "CommissionRate对象", description = "")
 public class CommissionRate implements Serializable {
 

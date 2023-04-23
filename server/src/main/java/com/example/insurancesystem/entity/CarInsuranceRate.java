@@ -24,7 +24,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName(autoResultMap = true)
+@TableName(value = "car_insurance_rate",autoResultMap = true)
 @ApiModel(value = "CarInsuranceRate对象", description = "")
 public class CarInsuranceRate implements Serializable {
 
