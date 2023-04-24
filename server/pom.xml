@@ -95,6 +95,11 @@
 			<artifactId>japidocs</artifactId>
 			<version>1.4.4</version>
 		</dependency>
+		<!-- Spring Session -->
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-core</artifactId>
+		</dependency>
 
 	</dependencies>
 
