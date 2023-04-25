@@ -6,12 +6,12 @@ import java.util.Date;
 
 @Data
 public class InsuranceForQuery {
-    private String[] companies;
+    private Integer[] companyIds;
     //必填
     private String insurFullName;
     private String code;
     private String mainOrVice;
-    private String paramDiffName;
+    private Integer paramDiffNameId;
     private Date startFrom;
     private Date startTo;
     private Date endFrom;

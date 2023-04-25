@@ -45,7 +45,7 @@ public class InsuranceServiceImpl extends ServiceImpl<InsuranceMapper, Insurance
     public ResultInfo queryInsurance(InsuranceForQuery param) {
         List<Insurance> result = new ArrayList<>();
         QueryWrapper<Insurance> queryWrapper = new QueryWrapper<>();
-        queryWrapper.in("company_name", param.getCompanies());
+        queryWrapper.in("company_id", param.getCompanyIds());
         if(param.getInsurFullName() != null) {
             queryWrapper.eq("insur_full_name", param.getInsurFullName());
         }
@@ -55,8 +55,8 @@ public class InsuranceServiceImpl extends ServiceImpl<InsuranceMapper, Insurance
         if(param.getMainOrVice() != null) {
             queryWrapper.eq("main_or_vice", param.getMainOrVice());
         }
-        if(param.getCode() != null) {
-            queryWrapper.eq("param_diff_name", param.getParamDiffName());
+        if(param.getParamDiffNameId() != null) {
+            queryWrapper.eq("param_diff_name_id", param.getParamDiffNameId());
         }
         if(param.getStartFrom() != null && param.getStartTo() != null) {
             queryWrapper.between("start_sale_time", param.getStartFrom(), param.getStartTo());

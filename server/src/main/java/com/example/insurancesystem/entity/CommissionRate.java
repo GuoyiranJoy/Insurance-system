@@ -36,7 +36,7 @@ public class CommissionRate implements Serializable {
 
     private Integer insurId;
 
-    private String rateParamName;
+    private String rateParamNameId;
 
     private String inOut;
 

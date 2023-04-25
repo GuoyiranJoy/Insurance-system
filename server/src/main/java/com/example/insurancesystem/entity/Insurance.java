@@ -35,9 +35,9 @@ public class Insurance implements Serializable {
 
     @TableId(value = "insur_id", type = IdType.AUTO)
     private Integer insurId;
-    @ApiModelProperty(value = "公司名",required = true,example = "天安财险")
+    @ApiModelProperty(value = "公司id",required = true,example = "1")
     //必填
-    private String companyName;
+    private Integer companyId;
     @ApiModelProperty(value = "险种全名",required = true)
     //必填
     private String insurFullName;
@@ -49,8 +49,8 @@ public class Insurance implements Serializable {
     @ApiModelProperty("主附约")
     private String mainOrVice;
     //必填
-    @ApiModelProperty("参数区别")
-    private String paramDiffName;
+    @ApiModelProperty("参数区别id")
+    private Integer paramDiffNameId;
     //必填
     @ApiModelProperty("险种类别")
     private String insurType;
