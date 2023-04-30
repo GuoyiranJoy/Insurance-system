@@ -56,6 +56,17 @@ public class CommissionRateController {
 
     }
     /**
+     * 批量删掉核佣费率
+     *
+     * @param ids   费率ids
+     * @return 查询结果
+     */
+    @PostMapping("/deleteBatchInsurance")
+    public ResultInfo deleteBatchInsurance(@RequestParam(value = "ids",required = true) List<String> ids){
+
+        return ResultInfo.success(commissionRateService.removeBatchByIds(ids));
+    }
+    /**
      * 新增或编辑核佣费率
      *
      * @param commissionRate 核佣费率

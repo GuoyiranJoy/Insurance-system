@@ -56,6 +56,18 @@ public class InsuranceController {
 
         return ResultInfo.success(insuranceService.removeById(id));
     }
+
+    /**
+     * 批量删掉险种
+     *
+     * @param ids    险种ids
+     * @return 查询结果
+     */
+    @PostMapping("/deleteBatchInsurance")
+    public ResultInfo deleteBatchInsurance(@RequestParam(value = "ids",required = true) List<String> ids){
+
+        return ResultInfo.success(insuranceService.removeBatchByIds(ids));
+    }
     /**
      * 新增一笔
      *

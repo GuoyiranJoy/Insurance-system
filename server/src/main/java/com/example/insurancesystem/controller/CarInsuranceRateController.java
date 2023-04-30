@@ -46,6 +46,27 @@ public class CarInsuranceRateController {
 
         return ResultInfo.success(carInsuranceRateService.saveOrUpdate(carInsuranceRate));
     }
+    /**
+     * 删掉车险费率
+     *
+     * @param id
+     */
+    @PostMapping("/deleteInsurRule")
+    public ResultInfo deleteInsurance(@RequestParam(value = "id",required = true) String id){
+        return ResultInfo.success(carInsuranceRateService.removeById(id));
+    }
+
+    /**
+     * 批量删掉车险费率
+     *
+     * @param ids   核保规则ids
+     * @return 查询结果
+     */
+    @PostMapping("/deleteBatchInsurance")
+    public ResultInfo deleteBatchInsurance(@RequestParam(value = "ids",required = true) List<String> ids){
+
+        return ResultInfo.success(carInsuranceRateService.removeBatchByIds(ids));
+    }
 
     /**
      * 审核车险费率

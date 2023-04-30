@@ -48,6 +48,18 @@ public class CheckInsurRuleController {
     public ResultInfo deleteInsurance(@RequestParam(value = "id",required = true) String id){
         return ResultInfo.success(checkInsurRuleService.removeById(id));
     }
+
+    /**
+     * 批量删掉核保规则
+     *
+     * @param ids   核保规则ids
+     * @return 查询结果
+     */
+    @PostMapping("/deleteBatchInsurance")
+    public ResultInfo deleteBatchInsurance(@RequestParam(value = "ids",required = true) List<String> ids){
+
+        return ResultInfo.success(checkInsurRuleService.removeBatchByIds(ids));
+    }
     /**
      * 新增或编辑费率
      *
