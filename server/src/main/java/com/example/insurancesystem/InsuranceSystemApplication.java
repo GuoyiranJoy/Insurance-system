@@ -16,7 +16,7 @@ public class InsuranceSystemApplication {
 		config.setProjectPath("/Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem"); // 项目根目录
 		config.setProjectName("insuranceSystem"); // 项目名称
 		config.setApiVersion("V1.0");       // 声明该API的版本
-		config.setDocsPath("/Users/bytedance/Downloads/JAPI"); // 生成API 文档所在目录
+		config.setDocsPath("/Users/bytedance/Documents/GraduationProject/Insurance-system/server/JAPI"); // 生成API 文档所在目录
 		config.setAutoGenerate(Boolean.TRUE);  // 配置自动生成
 		config.addPlugin(new MarkdownDocPlugin());
 		Docs.buildHtmlDocs(config); // 执行生成文档
