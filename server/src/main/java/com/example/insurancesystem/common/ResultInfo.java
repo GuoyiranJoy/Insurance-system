@@ -12,8 +12,8 @@ public class ResultInfo {
     private String msg;
     private Object data;
 
-    public static ResultInfo success() {
-        return new ResultInfo(Constants.CODE_200, "", null);
+    public static ResultInfo success(String message) {
+        return new ResultInfo(Constants.CODE_200, message, null);
     }
 
     public static ResultInfo success(Object data) {

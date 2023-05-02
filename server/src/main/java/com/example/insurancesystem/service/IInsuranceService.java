@@ -21,7 +21,7 @@ public interface IInsuranceService extends IService<Insurance> {
 
     ResultInfo queryInsurance(InsuranceForQuery param);
 
-    void exportBlank(List<Integer> indexes, String filePath) throws IOException;
+    ResultInfo exportBlank(List<Integer> indexes, String filePath) throws IOException;
 
     List<Insurance> imp(MultipartFile file) throws IOException;
 }

@@ -456,8 +456,8 @@
                         <td>indexes</td>
                         <td>int[]</td>
                         <td>是</td>
-                        <td>包含的字段序号，对应数组 {"insurId", "companyName", "insurFullName", "insurShortName",
-     *                 "code", "mainOrVice", "paramDiffName", "insurType", "startSaleTime", "stopSaleTime",
+                        <td>包含的字段序号，对应数组 {"insurId", "companyId", "insurFullName", "insurShortName",
+     *                 "code", "mainOrVice", "paramDiffNameId", "insurType", "startSaleTime", "stopSaleTime",
      *                 "remark", "commonYear"};</td>
                     </tr>
                     <tr>
@@ -468,7 +468,18 @@
                     </tr>
         </table>
     <p><strong>返回结果</strong></p>
-    <pre class="prettyprint lang-json">{}</pre>
+    <pre class="prettyprint lang-json">{
+	"code":"string",
+	"msg":"string",
+	"data":"object"
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/com_example_insurancesystem_controller_InsuranceController_exportBlank_ResultInfo.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/com_example_insurancesystem_controller_InsuranceController_exportBlank_ResultInfo.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
                         </div>
                         <hr>
                         <div class="action-item">

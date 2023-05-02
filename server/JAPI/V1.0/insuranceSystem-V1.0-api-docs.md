@@ -381,15 +381,19 @@ ids|string[]|是|险种ids
 
 参数名|类型|必须|描述
 --:|:--:|:--:|:--
-indexes|int[]|是|包含的字段序号，对应数组 {"insurId", "companyName", "insurFullName", "insurShortName",
-     *                 "code", "mainOrVice", "paramDiffName", "insurType", "startSaleTime", "stopSaleTime",
+indexes|int[]|是|包含的字段序号，对应数组 {"insurId", "companyId", "insurFullName", "insurShortName",
+     *                 "code", "mainOrVice", "paramDiffNameId", "insurType", "startSaleTime", "stopSaleTime",
      *                 "remark", "commonYear"};
 filePath|string|是|文件保存路径
 
 **返回结果**
 
 ```json
-{}
+{
+	"code":"string",
+	"msg":"string",
+	"data":"object"
+}
 ```
 ## 导入（批量新增）
 

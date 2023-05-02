@@ -1,6 +1,5 @@
 package com.example.insurancesystem.service.impl;
 
-import cn.hutool.json.JSON;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -69,7 +68,7 @@ public class InsuranceServiceImpl extends ServiceImpl<InsuranceMapper, Insurance
     }
 
     @Override
-    public void exportBlank(List<Integer> indexes, String filePath) throws IOException {
+    public ResultInfo exportBlank(List<Integer> indexes, String filePath) throws IOException {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Insurance Data");
 
@@ -82,10 +81,11 @@ public class InsuranceServiceImpl extends ServiceImpl<InsuranceMapper, Insurance
         // Write to file
         try (FileOutputStream fileOut = new FileOutputStream(filePath + "/险种信息空模版.xlsx")) {
             workbook.write(fileOut);
+            workbook.close();
+            return ResultInfo.success("successfully export!");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        workbook.close();
     }
 
     @Override
@@ -117,8 +117,8 @@ public class InsuranceServiceImpl extends ServiceImpl<InsuranceMapper, Insurance
     }
 
 
-    private static final String[] COLUMN_HEADERS = {"insurId", "companyName", "insurFullName", "insurShortName",
-                "code", "mainOrVice", "paramDiffName", "insurType", "startSaleTime", "stopSaleTime",
+    private static final String[] COLUMN_HEADERS = {"insurId", "companyId", "insurFullName", "insurShortName",
+                "code", "mainOrVice", "paramDiffNameId", "insurType", "startSaleTime", "stopSaleTime",
                 "remark", "commonYear"};
 
     // Helper method to retrieve column index based on header

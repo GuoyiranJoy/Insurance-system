@@ -118,14 +118,14 @@ public class InsuranceController {
     /**
      * 生成导入空模板
      * @description
-     * @param indexes 包含的字段序号，对应数组 {"insurId", "companyName", "insurFullName", "insurShortName",
-     *      *                 "code", "mainOrVice", "paramDiffName", "insurType", "startSaleTime", "stopSaleTime",
+     * @param indexes 包含的字段序号，对应数组 {"insurId", "companyId", "insurFullName", "insurShortName",
+     *      *                 "code", "mainOrVice", "paramDiffNameId", "insurType", "startSaleTime", "stopSaleTime",
      *      *                 "remark", "commonYear"};
      * @param  filePath 文件保存路径
      */
     @GetMapping("/exportBlank")
-    public void exportBlank(@RequestParam(value = "indexes",required = true) List<Integer> indexes, @RequestParam(value = "filePath",required = true) String filePath) throws IOException {
-        insuranceService.exportBlank(indexes, filePath);
+    public ResultInfo exportBlank(@RequestParam(value = "indexes",required = true) List<Integer> indexes, @RequestParam(value = "filePath",required = true) String filePath) throws IOException {
+        return insuranceService.exportBlank(indexes, filePath);
     }
     /**
      * 导入（批量新增）
