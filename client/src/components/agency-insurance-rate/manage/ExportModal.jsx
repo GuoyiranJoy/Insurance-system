@@ -15,7 +15,20 @@ const exportColumns = [
   },
 ];
 
-const ExportModal = ({ visibility, setIsModalVisible, results }) => {
+const ExportModal = ({
+  visibility,
+  setIsModalVisible,
+  results,
+  allCompanyNames,
+  paramDiffNames,
+}) => {
+  const companyInt2StrMap = new Map(
+    allCompanyNames.map((obj) => [obj.value, obj.label])
+  );
+  const paramDiffInt2StrMap = new Map(
+    paramDiffNames.map((obj) => [obj.value, obj.name])
+  );
+
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -41,13 +54,21 @@ const ExportModal = ({ visibility, setIsModalVisible, results }) => {
       toast.error("请选择至少一个导出字段!");
       return false;
     }
+
+    const res = results.map((_) => ({
+      ..._,
+      companyName: companyInt2StrMap.get(_.companyId),
+      paramDiffName: paramDiffInt2StrMap.get(_.paramDiffNameId),
+      commonYear: JSON.stringify(_.commonYear),
+    }));
+
     const th = exportFields
       .filter((item) => fieldSet.has(item.key))
       .map((item) => item.name);
     const filterVal = exportFields
       .filter((item) => fieldSet.has(item.key))
       .map((item) => item.label);
-    const data = formatJson(filterVal, results);
+    const data = formatJson(filterVal, res);
     toExcel({
       th,
       data,
@@ -70,7 +91,7 @@ const ExportModal = ({ visibility, setIsModalVisible, results }) => {
   return (
     <>
       <Modal
-        title={"导出字段选择"}
+        title={"选择导出字段"}
         open={visibility}
         onCancel={handleCancel}
         footer={[

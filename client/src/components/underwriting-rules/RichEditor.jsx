@@ -1,10 +1,9 @@
-import "@wangeditor/editor/dist/css/style.css";
 import { Editor, Toolbar } from "@wangeditor/editor-for-react";
+import "@wangeditor/editor/dist/css/style.css";
 import React, { useEffect, useState } from "react";
 
-const RichEditor = () => {
+const RichEditor = ({ value, onChange }) => {
   const [editor, setEditor] = useState(null);
-  const [html, setHtml] = useState("<p>hello</p>");
 
   const toolbarConfig = {};
 
@@ -13,10 +12,6 @@ const RichEditor = () => {
   const editorConfig = {
     placeholder: "请输入内容...",
   };
-
-  useEffect(() => {
-    console.log(html);
-  }, [html]);
 
   useEffect(() => {
     return () => {
@@ -36,9 +31,11 @@ const RichEditor = () => {
       />
       <Editor
         defaultConfig={editorConfig}
-        value={html}
+        value={value}
         onCreated={setEditor}
-        onChange={(editor) => setHtml(editor.getHtml())}
+        onChange={(editor) => {
+          onChange(editor.getHtml());
+        }}
         mode="default"
         style={{ height: "300px", overflowY: "hidden" }}
       />

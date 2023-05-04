@@ -1,27 +1,29 @@
 import { Checkbox, DatePicker, Divider, Select, Space } from "antd";
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { BiArrowFromBottom } from "react-icons/bi";
 import { HiXMark } from "react-icons/hi2";
-import api from "../../../api/api";
-import { mockCompanyOptions } from "../../../mock/mockData";
-import {
-  companyTypeOptions,
-  masterOptions,
-  paramTypeOptions,
-  sellingOptions,
-} from "../../../utils/options";
+import { toast } from "react-toastify";
+import { GetCompany } from "../../../services/company";
+import { QueryInsurance } from "../../../services/insurance";
+import { GetParamDiff } from "../../../services/param-diff";
+import { preProcessData } from "../../../services/pre-process";
+import { masterOptionsForQuery } from "../../../utils/options";
 import {
   buttonStyle,
   queryInputStyle,
   querySelectStyle,
 } from "../../../utils/styles";
-import AddModal from "./AddModal";
 import ExportModal from "./ExportModal";
 import ExportRateModal from "./ExportRateModal";
 import ResultTable from "./ResultTable";
+import AddModal from "./add-information/AddModal";
 const { RangePicker } = DatePicker;
 
 const ManageAgency = () => {
+  const [allCompanyNames, setAllCompanyNames] = useState([]);
+  const [paramDiffNames, setParamDiffNames] = useState([]);
+
   const [isExportModalVisible, setIsExportModalVisible] = useState(false);
   const [isExportRateModalVisible, setIsExportRateModalVisible] =
     useState(false);
@@ -30,34 +32,57 @@ const ManageAgency = () => {
 
   const [isEveryCompanySelected, setIsEveryCompanySelected] = useState(false);
   const [queryConditions, setQueryConditions] = useState({
-    companyType: 1,
-    company_name: [],
-    insurance_cname: "",
-    code: "",
-    sellingStatus: 1,
-    main_or_vice: 1,
-    paramsDiff: 1,
-    start_sale_time: [],
-    stop_sale_time: [],
+    companyIds: [],
   });
 
   const [queryResult, setQueryResult] = useState([]);
 
-  const handleQuery = (e) => {
-    e?.preventDefault();
+  useEffect(() => {
+    const req1 = GetCompany();
+    const req2 = GetParamDiff();
+
+    axios.all([req1, req2]).then(
+      axios.spread((res1, res2) => {
+        setAllCompanyNames(
+          res1.data.data.map(({ companyId, companyName }) => ({
+            value: companyId,
+            label: companyName,
+          }))
+        );
+        setParamDiffNames(
+          [{ value: "全部", name: "全部" }].concat(
+            res2.data.data.map(({ id, paramDiffName }) => ({
+              value: id,
+              name: paramDiffName,
+            }))
+          )
+        );
+      })
+    );
+  }, []);
+
+  const handleQuery = () => {
+    if (!queryConditions.companyIds.length) {
+      toast.warn("请选择保险公司!");
+      return;
+    }
     setIsTableLoading(true);
-    api({
-      method: "get",
-      url: `/insurance?${queryConditions}`,
-    }).then((res) => {
-      setQueryResult(res.data);
-      setIsTableLoading(false);
-    });
+
+    QueryInsurance(preProcessData(queryConditions))
+      .then((res) => {
+        setQueryResult(res.data.data);
+      })
+      .finally(() => {
+        setIsTableLoading(false);
+      });
   };
 
   const handleSelectCompany = (value) => {
-    setQueryConditions((pre) => ({ ...pre, company_name: value }));
-    if (value.length === mockCompanyOptions.length) {
+    setQueryConditions((pre) => ({
+      ...pre,
+      companyIds: value,
+    }));
+    if (value.length === allCompanyNames.length) {
       setIsEveryCompanySelected(true);
     } else {
       setIsEveryCompanySelected(false);
@@ -65,55 +90,29 @@ const ManageAgency = () => {
   };
 
   const handleSelectAllCompanies = (e) => {
-    const all = mockCompanyOptions.map((item) => item.value);
+    const all = allCompanyNames.map((item) => item.value);
     if (e.target.checked) {
       setIsEveryCompanySelected(true);
       setQueryConditions((pre) => ({
         ...pre,
-        company_name: all,
+        companyIds: all,
       }));
     } else {
       setIsEveryCompanySelected(false);
       setQueryConditions((pre) => ({
         ...pre,
-        company_name: [],
+        companyIds: [],
       }));
     }
-  };
-
-  const getInsurance = () => {
-    api({
-      method: "get",
-      url: `/insurance`,
-    }).then((res) => {
-      setQueryResult(res.data);
-      setIsTableLoading(false);
-    });
   };
 
   return (
     <div className="pt-2 pb-2 pl-6 lg:pl-8 pr-10 lg:pr-12">
       {/* Query */}
-      <form className="w-full py-4 pb-8 gap-4 flex flex-col justify-between">
+      <div className="w-full py-4 pb-8 gap-4 flex flex-col justify-between">
         {/* Row 1 */}
         <div className="flex items-center gap-2">
           <label htmlFor="insurance-company">保险公司</label>
-          <select
-            onChange={(e) => {
-              setQueryConditions((pre) => ({
-                ...pre,
-                companyType: +e.target.value,
-                company_name: +e.target.value <= 2 ? [] : pre.company_name,
-              }));
-            }}
-            className="py-0.5 rounded border-solid border-[1px] border-[#D9D9D9]"
-          >
-            {companyTypeOptions.map(({ value, name }) => (
-              <option key={value} value={value}>
-                {name}
-              </option>
-            ))}
-          </select>
           <Space
             style={{
               flex: "1",
@@ -121,7 +120,6 @@ const ManageAgency = () => {
             direction="vertical"
           >
             <Select
-              disabled={queryConditions.companyType <= 2}
               mode="multiple"
               allowClear
               style={{
@@ -130,8 +128,8 @@ const ManageAgency = () => {
               maxTagCount={7}
               placeholder="请选择保险公司"
               onChange={handleSelectCompany}
-              options={mockCompanyOptions}
-              value={queryConditions.company_name}
+              options={allCompanyNames}
+              value={queryConditions.companyIds}
               dropdownRender={(menu) => (
                 <>
                   <div className="p-2 pt-1 cursor-pointer">
@@ -155,56 +153,45 @@ const ManageAgency = () => {
           {/* Left */}
           <div className="flex-1 flex flex-col gap-4">
             <div className="flex items-center gap-2">
-              <label htmlFor="insurance_cname">险种名称</label>
+              <label htmlFor="insurFullName">险种全称</label>
               <input
                 className={queryInputStyle}
                 type="text"
+                value={queryConditions.insurFullName}
                 onChange={(e) => {
                   setQueryConditions((pre) => ({
                     ...pre,
-                    insurance_cname: e.target.value,
+                    insurFullName: e.target.value.replace(/\s|\t/g, ""),
                   }));
                 }}
               />
               <button
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={() => {
+                  setQueryConditions((pre) => ({
+                    ...pre,
+                    insurFullName: "",
+                  }));
                 }}
               >
                 <HiXMark />
               </button>
             </div>
             <div className="flex-1 flex items-center gap-4">
-              <div className="flex-1 flex gap-2">
-                <label htmlFor="selling">是否停售</label>
+              <div className="flex-1 flex items-center gap-2">
+                <label htmlFor="mainOrVice">&emsp;主附约</label>
                 <select
                   onChange={(e) => {
+                    const value =
+                      e.target.value === "全部" ? undefined : e.target.value;
+
                     setQueryConditions((pre) => ({
                       ...pre,
-                      sellingStatus: +e.target.value,
+                      mainOrVice: value,
                     }));
                   }}
                   className={`${querySelectStyle}  flex-1`}
                 >
-                  {sellingOptions.map(({ value, name }) => (
-                    <option key={value} value={value}>
-                      {name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="flex-1 flex gap-2">
-                <label htmlFor="main_or_vice">&emsp;主附约</label>
-                <select
-                  onChange={(e) => {
-                    setQueryConditions((pre) => ({
-                      ...pre,
-                      main_or_vice: +e.target.value,
-                    }));
-                  }}
-                  className={`${querySelectStyle}  flex-1`}
-                >
-                  {masterOptions.map(({ value, name }) => (
+                  {masterOptionsForQuery.map(({ value, name }) => (
                     <option key={value} value={value}>
                       {name}
                     </option>
@@ -216,14 +203,17 @@ const ManageAgency = () => {
               <label htmlFor="params-diff">参数区别</label>
               <select
                 onChange={(e) => {
+                  const value =
+                    e.target.value === "全部" ? undefined : +e.target.value;
+
                   setQueryConditions((pre) => ({
                     ...pre,
-                    paramsDiff: +e.target.value,
+                    paramDiffNameId: value,
                   }));
                 }}
                 className={`${querySelectStyle}  flex-1`}
               >
-                {paramTypeOptions.map(({ value, name }) => (
+                {paramDiffNames.map(({ value, name }) => (
                   <option key={value} value={value}>
                     {name}
                   </option>
@@ -238,6 +228,7 @@ const ManageAgency = () => {
               <input
                 className={queryInputStyle}
                 type="text"
+                value={queryConditions.code}
                 onKeyUp={(e) => {
                   e.target.value = e.target.value.replace(/[^\w]/gi, "");
                 }}
@@ -249,8 +240,11 @@ const ManageAgency = () => {
                 }}
               />
               <button
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={() => {
+                  setQueryConditions((pre) => ({
+                    ...pre,
+                    code: "",
+                  }));
                 }}
               >
                 <HiXMark />
@@ -264,7 +258,8 @@ const ManageAgency = () => {
                   const period = value?.map((_) => _.format("YYYY-MM-DD"));
                   setQueryConditions((pre) => ({
                     ...pre,
-                    start_sale_time: period,
+                    startFrom: period[0],
+                    startTo: period[1],
                   }));
                 }}
               />
@@ -277,7 +272,8 @@ const ManageAgency = () => {
                   const period = value?.map((_) => _.format("YYYY-MM-DD"));
                   setQueryConditions((pre) => ({
                     ...pre,
-                    stop_sale_time: period,
+                    stopFrom: period[0],
+                    stopTo: period[1],
                   }));
                 }}
               />
@@ -286,8 +282,7 @@ const ManageAgency = () => {
         </div>
         <div className="flex pt-2 gap-4">
           <button
-            onClick={(e) => {
-              e.preventDefault();
+            onClick={() => {
               setIsExportModalVisible(true);
             }}
             className={`${buttonStyle} flex gap-1 items-center`}
@@ -296,8 +291,7 @@ const ManageAgency = () => {
             <p>导出险种Excel</p>
           </button>
           <button
-            onClick={(e) => {
-              e.preventDefault();
+            onClick={() => {
               setIsAddModalVisible(true);
             }}
             className={buttonStyle}
@@ -312,15 +306,19 @@ const ManageAgency = () => {
             查询
           </button>
         </div>
-      </form>
+      </div>
       <ResultTable
         data={queryResult}
+        allCompanyNames={allCompanyNames}
+        paramDiffNames={paramDiffNames.slice(1)}
         loading={isTableLoading}
         getInsurance={handleQuery}
       />
       <ExportModal
         visibility={isExportModalVisible}
         setIsModalVisible={setIsExportModalVisible}
+        allCompanyNames={allCompanyNames}
+        paramDiffNames={paramDiffNames.slice(1)}
         results={queryResult}
       />
       <ExportRateModal
@@ -329,9 +327,10 @@ const ManageAgency = () => {
         results={queryResult}
       />
       <AddModal
+        allCompanyNames={allCompanyNames}
+        paramDiffNames={paramDiffNames.slice(1)}
         visibility={isAddModalVisible}
         setIsModalVisible={setIsAddModalVisible}
-        getInsurance={getInsurance}
       />
     </div>
   );

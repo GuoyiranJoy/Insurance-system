@@ -1,12 +1,18 @@
 import { Modal } from "antd";
 import React, { useState } from "react";
-import api from "../../../api/api";
-import MyButton from "../../common/MyButton";
+import MyButton from "../../../common/MyButton";
 import AddInformation from "./AddInformation";
+import { AddInsurance } from "../../../../services/insurance";
+import { toast } from "react-toastify";
 
-const AddModal = ({ visibility, setIsModalVisible, getInsurance }) => {
+const AddModal = ({
+  allCompanyNames,
+  paramDiffNames,
+  visibility,
+  setIsModalVisible,
+}) => {
   const [loading, setLoading] = useState(false);
-  const [info, setInfo] = useState({});
+  const [info, setInfo] = useState({ commonYear: [] });
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -14,16 +20,10 @@ const AddModal = ({ visibility, setIsModalVisible, getInsurance }) => {
 
   const handlePost = () => {
     setLoading(true);
-    api({
-      method: "post",
-      url: "/insurance",
-      data: info,
-    })
-      .then((res) => {
-        // console.log(res.data);
-        setLoading(false);
+    AddInsurance(info)
+      .then(() => {
+        toast.success("成功新增险种信息!");
         setIsModalVisible(false);
-        getInsurance();
       })
       .finally(() => {
         setLoading(false);
@@ -33,7 +33,7 @@ const AddModal = ({ visibility, setIsModalVisible, getInsurance }) => {
   return (
     <Modal
       key={visibility}
-      title={"险种信息添加"}
+      title={"新增险种信息"}
       open={visibility}
       closable={false}
       footer={[
@@ -50,7 +50,12 @@ const AddModal = ({ visibility, setIsModalVisible, getInsurance }) => {
         </MyButton>,
       ]}
     >
-      <AddInformation setInfo={setInfo} />
+      <AddInformation
+        info={info}
+        setInfo={setInfo}
+        allCompanyNames={allCompanyNames}
+        paramDiffNames={paramDiffNames}
+      />
     </Modal>
   );
 };
