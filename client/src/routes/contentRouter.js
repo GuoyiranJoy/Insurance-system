@@ -21,9 +21,7 @@ const contentRouter = [
   },
   {
     path: "/manage-settlement-rate",
-    element: lazy(() =>
-      import("../components/settlement-rate/SettlementRate")
-    ),
+    element: lazy(() => import("../components/settlement-rate/SettlementRate")),
   },
   {
     path: "/import-agency-insurance-rate",

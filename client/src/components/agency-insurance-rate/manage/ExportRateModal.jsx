@@ -71,7 +71,7 @@ const ExportRateModal = ({ visibility, setIsModalVisible, results }) => {
   return (
     <>
       <Modal
-        title={"导出费率参数选择"}
+        title={"选择导出费率参数"}
         open={visibility}
         onCancel={handleCancel}
         footer={[

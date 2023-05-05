@@ -1,45 +1,92 @@
 import { Checkbox, DatePicker, Divider, Select, Space } from "antd";
 import locale from "antd/es/date-picker/locale/zh_CN";
-import "dayjs/locale/zh-cn";
-import React, { useState } from "react";
-import {
-  fakeData1,
-  mockBranchOptions,
-  mockCompanyOptions,
-} from "../../mock/mockData";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { GetBranch } from "../../services/branch";
+import { GetCompany } from "../../services/company";
+import { preProcessData } from "../../services/pre-process";
+import { QueryRule } from "../../services/rule";
 import { buttonStyle, queryInputStyle } from "../../utils/styles";
-import AddModal from "./AddModal";
 import ResultTable from "./ResultTable";
+import AddModal from "./add-rule/AddModal";
+
 const { RangePicker } = DatePicker;
 
 const UnderwritingRules = () => {
+  const [allCompanyOptions, setAllCompanyOptions] = useState([]);
+  const [allBranchOptions, setAllBranchOptions] = useState([]);
+
+  const [companyMap, setCompanyMap] = useState({});
+  const [branchMap, setBranchMap] = useState({});
+
   const [isEveryCompanySelected, setIsEveryCompanySelected] = useState(false);
   const [isEveryBranchSelected, setIsEveryBranchSelected] = useState(false);
+
   const [queryConditions, setQueryConditions] = useState({
-    company: [],
-    branch: [],
-    publishedPeriod: [],
-    title: "",
+    companyNames: [],
+    branchNames: [],
+    name: "",
   });
   const [queryResult, setQueryResult] = useState([]);
 
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [isTableLoading, setIsTableLoading] = useState(false);
 
-  const handleQuery = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const req1 = GetCompany();
+    const req2 = GetBranch();
+
+    axios.all([req1, req2]).then(
+      axios.spread((res1, res2) => {
+        setAllCompanyOptions(
+          res1.data.data.map(({ companyId, companyName }) => ({
+            value: companyId,
+            label: companyName,
+          }))
+        );
+        setCompanyMap(
+          new Map(res1.data.data.map((obj) => [obj.companyId, obj.companyName]))
+        );
+
+        setAllBranchOptions(
+          res2.data.data.map(({ branchId, branchName }) => ({
+            value: branchId,
+            label: branchName,
+          }))
+        );
+        setBranchMap(
+          new Map(res2.data.data.map((obj) => [obj.branchId, obj.branchName]))
+        );
+      })
+    );
+  }, []);
+
+  const handleQuery = () => {
+    if (!queryConditions.companyNames || !queryConditions.companyNames.length) {
+      toast.warn("请选择保险公司!");
+      return;
+    }
     setIsTableLoading(true);
-    console.log(queryConditions);
-    console.log(conditions);
-    setTimeout(() => {
-      setQueryResult(fakeData1);
-      setIsTableLoading(false);
-    }, 1000);
+    const con = {
+      ...queryConditions,
+      companyNames: queryConditions.companyNames?.map((_) => companyMap.get(_)),
+      branchNames: queryConditions.branchNames?.map((_) => branchMap.get(_)),
+    };
+    const body = preProcessData(con);
+
+    QueryRule(body)
+      .then((res) => {
+        setQueryResult(res.data.data);
+      })
+      .finally(() => {
+        setIsTableLoading(false);
+      });
   };
 
   const handleSelectCompany = (value) => {
-    setQueryConditions((pre) => ({ ...pre, company: value }));
-    if (value.length === mockCompanyOptions.length) {
+    setQueryConditions((pre) => ({ ...pre, companyNames: value }));
+    if (value.length === allCompanyOptions.length) {
       setIsEveryCompanySelected(true);
     } else {
       setIsEveryCompanySelected(false);
@@ -47,8 +94,8 @@ const UnderwritingRules = () => {
   };
 
   const handleSelectBranch = (value) => {
-    setQueryConditions((pre) => ({ ...pre, branch: value }));
-    if (value.length === mockBranchOptions.length) {
+    setQueryConditions((pre) => ({ ...pre, branchNames: value }));
+    if (value.length === allBranchOptions.length) {
       setIsEveryBranchSelected(true);
     } else {
       setIsEveryBranchSelected(false);
@@ -56,42 +103,42 @@ const UnderwritingRules = () => {
   };
 
   const handleSelectAllCompanies = (e) => {
-    const all = mockCompanyOptions.map((item) => item.value);
+    const all = allCompanyOptions.map((item) => item.value);
     if (e.target.checked) {
       setIsEveryCompanySelected(true);
       setQueryConditions((pre) => ({
         ...pre,
-        company: all,
+        companyNames: all,
       }));
     } else {
       setIsEveryCompanySelected(false);
       setQueryConditions((pre) => ({
         ...pre,
-        company: [],
+        companyNames: [],
       }));
     }
   };
 
   const handleSelectAllBranches = (e) => {
-    const all = mockCompanyOptions.map((item) => item.value);
+    const all = allBranchOptions.map((item) => item.value);
     if (e.target.checked) {
       setIsEveryBranchSelected(true);
       setQueryConditions((pre) => ({
         ...pre,
-        branch: all,
+        branchNames: all,
       }));
     } else {
       setIsEveryBranchSelected(false);
       setQueryConditions((pre) => ({
         ...pre,
-        branch: [],
+        branchNames: [],
       }));
     }
   };
 
   return (
     <div className="pt-2 pb-2 pl-6 lg:pl-8 pr-10 lg:pr-12">
-      <form className="w-full py-4 pb-8 gap-4 flex flex-col justify-between">
+      <div className="w-full py-4 pb-8 gap-4 flex flex-col justify-between">
         {/* Row 1 */}
         <div className="flex items-center gap-2">
           <label htmlFor="insurance-company">保险公司</label>
@@ -110,8 +157,8 @@ const UnderwritingRules = () => {
               maxTagCount={7}
               placeholder="请选择保险公司"
               onChange={handleSelectCompany}
-              options={mockCompanyOptions}
-              value={queryConditions.company}
+              options={allCompanyOptions}
+              value={queryConditions.companyNames}
               dropdownRender={(menu) => (
                 <>
                   <div className="p-2 pt-1 cursor-pointer">
@@ -142,7 +189,7 @@ const UnderwritingRules = () => {
                 onChange={(e) => {
                   setQueryConditions((pre) => ({
                     ...pre,
-                    title: e.target.value,
+                    name: e.target.value,
                   }));
                 }}
               />
@@ -156,10 +203,10 @@ const UnderwritingRules = () => {
                 style={{ flex: 1 }}
                 locale={locale}
                 onChange={(value) => {
-                  const period = value?.map((_) => _.format("YYYY-MM-DD"));
                   setQueryConditions((pre) => ({
                     ...pre,
-                    publishedPeriod: period,
+                    from: value?.[0].toISOString(),
+                    to: value?.[1].toISOString(),
                   }));
                 }}
               />
@@ -185,8 +232,8 @@ const UnderwritingRules = () => {
               maxTagCount={7}
               placeholder="请选择分支机构"
               onChange={handleSelectBranch}
-              options={mockBranchOptions}
-              value={queryConditions.branch}
+              options={allBranchOptions}
+              value={queryConditions.branchNames}
               dropdownRender={(menu) => (
                 <>
                   <div className="p-2 pt-1 cursor-pointer">
@@ -208,8 +255,7 @@ const UnderwritingRules = () => {
         <div className="flex pt-2">
           <button
             className={buttonStyle}
-            onClick={(e) => {
-              e.preventDefault();
+            onClick={() => {
               setIsAddModalVisible(true);
             }}
           >
@@ -223,13 +269,23 @@ const UnderwritingRules = () => {
             查询
           </button>
         </div>
-      </form>
-      <ResultTable loading={isTableLoading} data={queryResult} />
-      <AddModal
-        visibility={isAddModalVisible}
-        setIsModalVisible={setIsAddModalVisible}
-        // getRules={getRules}
+      </div>
+      <ResultTable
+        loading={isTableLoading}
+        data={queryResult}
+        allCompanyOptions={allCompanyOptions}
+        allBranchOptions={allBranchOptions}
+        getRules={handleQuery}
       />
+      {isAddModalVisible && (
+        <AddModal
+          visibility={isAddModalVisible}
+          setIsModalVisible={setIsAddModalVisible}
+          allCompanyOptions={allCompanyOptions}
+          allBranchOptions={allBranchOptions}
+          getRules={handleQuery}
+        />
+      )}
     </div>
   );
 };

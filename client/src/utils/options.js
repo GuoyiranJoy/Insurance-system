@@ -1,18 +1,17 @@
 // exportFields 与 exportRateFields 每项key属性不能修改为其他名称
 export const exportFields = [
-  { key: 1, name: "序号", label: "id" },
-  { key: 2, name: "是否导入", label: "isImport" },
-  { key: 3, name: "保险公司", label: "company" },
-  { key: 4, name: "险种名称", label: "name" },
-  { key: 5, name: "险种简称", label: "shortName" },
+  { key: 1, name: "序号", label: "insurId" },
+  { key: 3, name: "保险公司", label: "companyName" },
+  { key: 4, name: "险种名称", label: "insurFullName" },
+  { key: 5, name: "险种简称", label: "insurShortName" },
   { key: 6, name: "险种代码", label: "code" },
-  { key: 7, name: "主附约", label: "master" },
-  { key: 8, name: "参数区别", label: "paramsDiff" },
-  { key: 9, name: "险种类别", label: "type" },
-  { key: 10, name: "启售日", label: "start" },
-  { key: 11, name: "停售日", label: "end" },
+  { key: 7, name: "主附约", label: "mainOrVice" },
+  { key: 8, name: "参数区别", label: "paramDiffName" },
+  { key: 9, name: "险种类别", label: "insurType" },
+  { key: 10, name: "启售日", label: "startSaleTime" },
+  { key: 11, name: "停售日", label: "stopSaleTime" },
   { key: 12, name: "备注", label: "remark" },
-  { key: 13, name: "常用年期", label: "years" },
+  { key: 13, name: "常用年期", label: "commonYear" },
 ];
 export const exportRateFields = [
   { key: 101, name: "首/续年佣金" },
@@ -34,7 +33,7 @@ export const rateParamsOptions = exportRateFields.map((_) => ({
   label: _.name,
 }));
 
-export const paramTypeOptions = [
+export const paramTypeOptionsForQuery = [
   { value: 1, name: "全部" },
   { value: 0, name: "一般险种" },
   { value: 11, name: "团体险种" },
@@ -45,10 +44,25 @@ export const paramTypeOptions = [
   { value: 99, name: "第三方网络平台险种" },
 ];
 
-export const masterOptions = [
-  { value: 2, name: "全部" },
-  { value: 0, name: "主约" },
-  { value: 1, name: "附约" },
+export const paramTypeOptionsForCreate = [
+  { value: 0, name: "一般险种" },
+  { value: 11, name: "团体险种" },
+  { value: 12, name: "卡单险种" },
+  { value: 13, name: "车险险种" },
+  { value: 14, name: "财险险种" },
+  { value: 98, name: "自营网络平台险种" },
+  { value: 99, name: "第三方网络平台险种" },
+];
+
+export const masterOptionsForQuery = [
+  { value: "全部", name: "全部" },
+  { value: "主约", name: "主约" },
+  { value: "附约", name: "附约" },
+];
+
+export const masterOptionsForCreate = [
+  { value: "主约", name: "主约" },
+  { value: "附约", name: "附约" },
 ];
 
 export const sellingOptions = [
@@ -114,7 +128,7 @@ export const insuranceTypeOptions = [
   { value: 32, name: "农业保险" },
   { value: 33, name: "健康险-投资性健康险" },
   { value: 34, name: "健康险-其他" },
-  { value: 35, name: "健康险-其他  意外伤害险-投资型" },
+  { value: 35, name: "意外伤害险-投资型" },
   { value: 36, name: "意外伤害险-其他" },
   { value: 37, name: "其他" },
 ];

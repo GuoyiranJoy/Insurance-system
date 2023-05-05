@@ -1,22 +1,46 @@
 import React, { useState } from "react";
 import { HiLockClosed, HiOutlineUser } from "react-icons/hi";
+import { useLocation, useNavigate } from "react-router-dom";
+import { UserLogin } from "../../services/user";
 
+import { toast } from "react-toastify";
 import { useAuth } from "../AuthProvider";
 import { Input } from "./Input";
 
 const LoginCard = ({ changeToRegCard }) => {
-  const { onLogin } = useAuth();
+  const { setToken } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLogging, setIsLogging] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(username, password);
     setIsLogging(true);
-    await onLogin(username, password);
-    setIsLogging(false);
+    UserLogin({ username, password })
+      .then((res) => {
+        toast.dismiss();
+        setToken(res.data.data);
+        localStorage.setItem("USER_KEY", JSON.stringify(res.data.data));
+        setIsLogging(false);
+
+        const origin = location.state?.from?.pathname;
+        if (origin) {
+          if (origin === "/login") {
+            navigate("/main");
+          } else {
+            navigate(origin);
+          }
+        } else {
+          navigate("/main");
+        }
+      })
+      .finally(() => {
+        setIsLogging(false);
+      });
   };
 
   return (
