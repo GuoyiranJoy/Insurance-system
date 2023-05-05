@@ -1,17 +1,25 @@
 package com.example.insurancesystem;
 
+import com.example.insurancesystem.config.TomcatConfig;
 import io.github.yedaxia.apidocs.Docs;
 import io.github.yedaxia.apidocs.DocsConfig;
 import io.github.yedaxia.apidocs.plugin.markdown.MarkdownDocPlugin;
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.annotation.Import;
 
+// 增加端口监听
+@Import({TomcatConfig.class})
 @SpringBootApplication
 public class InsuranceSystemApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(InsuranceSystemApplication.class, args);
+		new SpringApplicationBuilder(InsuranceSystemApplication.class)
+				.bannerMode(Banner.Mode.OFF)
+				.run(args);
+//		SpringApplication.run(InsuranceSystemApplication.class, args);
 		DocsConfig config = new DocsConfig();
 		config.setProjectPath("/Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem"); // 项目根目录
 		config.setProjectName("insuranceSystem"); // 项目名称

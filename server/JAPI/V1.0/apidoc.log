@@ -1,104 +1,104 @@
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: find java src paths:  [/Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/]
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: project type not set, try to figure out...
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start find controllers in path : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: find controller file : CompanyController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: find controller file : CarInsuranceRateController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: find controller file : ParamDiffController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: find controller file : BranchController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: find controller file : InsuranceController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: find controller file : RateParamNameController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: find controller file : CheckInsurRuleController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: find controller file : CommissionRateController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: find controller file : UserController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to parse controller file : CompanyController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to parse controller file : CompanyController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to parse controller file : CarInsuranceRateController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to parse controller file : CarInsuranceRateController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to parse controller file : ParamDiffController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to parse controller file : ParamDiffController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to parse controller file : BranchController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to parse controller file : BranchController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to parse controller file : InsuranceController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to parse controller file : InsuranceController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to parse controller file : RateParamNameController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to parse controller file : RateParamNameController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to parse controller file : CheckInsurRuleController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to parse controller file : CheckInsurRuleController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to parse controller file : CommissionRateController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to parse controller file : CommissionRateController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to parse controller file : UserController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to parse controller file : UserController.java
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: generate api docs start...
-五月 02, 2023 4:09:46 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/CompanyController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/CompanyController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/CarInsuranceRateController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/CarInsuranceRateController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/ParamDiffController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/ParamDiffController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/BranchController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/BranchController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/InsuranceController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/InsuranceController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/RateParamNameController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/RateParamNameController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/CheckInsurRuleController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/CheckInsurRuleController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:03 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/CommissionRateController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:04 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/CommissionRateController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:04 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: start to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/UserController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:04 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: success to generate docs for controller file : /Users/bytedance/Documents/GraduationProject/Insurance-system/server/src/main/java/com/example/insurancesystem/controller/UserController.java
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:04 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: generate index start !!!
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:04 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: generate index done !!!
-五月 02, 2023 4:09:47 下午 io.github.yedaxia.apidocs.LogUtils info
+五月 05, 2023 6:05:04 下午 io.github.yedaxia.apidocs.LogUtils info
 信息: info: generate api docs done !!!
