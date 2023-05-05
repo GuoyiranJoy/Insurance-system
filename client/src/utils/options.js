@@ -65,6 +65,15 @@ export const masterOptionsForCreate = [
   { value: "附约", name: "附约" },
 ];
 
+export const vehicleTypeOptions = [
+  { value: "家庭自用汽车6座以下", name: "家庭自用汽车6座以下" },
+  { value: "家庭自用汽车6座及以上", name: "家庭自用汽车6座及以上" },
+  { value: "企业非营业汽车6座以下", name: "企业非营业汽车6座以下" },
+  { value: "企业非营业汽车6-10座", name: "企业非营业汽车6-10座" },
+  { value: "企业非营业汽车11-20座", name: "企业非营业汽车11-20座" },
+  { value: "企业非营业汽车20座以上", name: "企业非营业汽车20座以上" },
+];
+
 export const sellingOptions = [
   { value: 0, name: "全部" },
   { value: 1, name: "现售" },

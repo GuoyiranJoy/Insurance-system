@@ -11,12 +11,7 @@ const AddInformation = () => {
     },
     {
       key: "2",
-      label: "费率列表-交强险",
-      children: <></>,
-    },
-    {
-      key: "3",
-      label: "费率列表-商业险",
+      label: "费率列表",
       children: <></>,
     },
   ];
