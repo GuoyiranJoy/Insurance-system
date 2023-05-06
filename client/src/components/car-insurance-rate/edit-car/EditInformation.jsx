@@ -48,6 +48,8 @@ const EditInformation = ({
     commissionRateOut,
   } = curCar;
 
+  const [activeKey, setActiveKey] = useState("1");
+
   const [rateIn, setRateIn] = useState(commissionRateIn);
   const [rateOut, setRateOut] = useState(commissionRateOut);
 
@@ -55,8 +57,6 @@ const EditInformation = ({
 
   const [isEveryCompanySelected, setIsEveryCompanySelected] = useState(false);
   const [isEveryBranchSelected, setIsEveryBranchSelected] = useState(false);
-
-  const [activeKey, setActiveKey] = useState("1");
 
   useEffect(() => {
     const list = [];
@@ -164,11 +164,12 @@ const EditInformation = ({
               defaultValue={[dayjs(insurStarttime), dayjs(insurEndtime)]}
               style={{ flex: 1, marginTop: "0.5rem" }}
               onChange={(value) => {
-                const period = value?.map((_) => _.format("YYYY-MM-DD"));
+                const [from, to] =
+                  value?.map((_) => _.format("YYYY-MM-DD")) || [];
                 setCar((pre) => ({
                   ...pre,
-                  insurStarttime: period[0],
-                  insurEndtime: period[1],
+                  insurStarttime: from,
+                  insurEndtime: to,
                 }));
               }}
             />

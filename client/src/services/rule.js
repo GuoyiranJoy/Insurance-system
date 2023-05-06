@@ -22,4 +22,15 @@ const DeleteRule = (id) =>
     data: qs.stringify({ id: id }),
   });
 
-export { QueryRule, AddOrUpdateRule, DeleteRule };
+const DeleteBatchRule = (ids) => {
+  const params = new URLSearchParams();
+  params.append("ids", ids);
+
+  return axiosClient({
+    method: "post",
+    url: "/check-insur-rule/deleteBatchInsurance",
+    params: params,
+  });
+};
+
+export { QueryRule, AddOrUpdateRule, DeleteRule, DeleteBatchRule };

@@ -2,12 +2,13 @@ import { Checkbox, Divider, Select, Space } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { GetBranch } from "../../services/branch";
-import { QueryCar } from "../../services/car";
+import { DeleteBatchCar, QueryCar } from "../../services/car";
 import { GetCompany } from "../../services/company";
 import { preProcessData } from "../../services/pre-process";
 import { buttonStyle, queryInputStyle } from "../../utils/styles";
 import ResultTable from "./ResultTable";
 import AddModal from "./add-car/AddModal";
+import { toast } from "react-toastify";
 
 const CarInsuranceRate = () => {
   const [allCompanyOptions, setAllCompanyOptions] = useState([]);
@@ -28,6 +29,17 @@ const CarInsuranceRate = () => {
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [isTableLoading, setIsTableLoading] = useState(false);
 
+  const [selectedCars, setSelectedCars] = useState([]);
+
+  const onSelectChange = (newSelectedRowKeys) => {
+    setSelectedCars(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys: selectedCars,
+    onChange: onSelectChange,
+  };
+
   const handleQuery = () => {
     setIsTableLoading(true);
     const con = {
@@ -43,6 +55,18 @@ const CarInsuranceRate = () => {
       })
       .finally(() => {
         setIsTableLoading(false);
+      });
+  };
+
+  const handleDeleteBatch = () => {
+    DeleteBatchCar(selectedCars)
+      .then(() => {
+        toast.success("批量删除成功!");
+        setSelectedCars([]);
+        handleQuery();
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -233,6 +257,15 @@ const CarInsuranceRate = () => {
             新增一笔
           </button>
           <button
+            disabled={!selectedCars.length}
+            className={
+              "mx-4 px-6 py-1 border-solid border-[1.5px] rounded transition-all duration-100 border-transparent bg-blue-500 text-white hover:bg-blue-500/90 disabled:bg-slate-400/50 disabled:cursor-not-allowed"
+            }
+            onClick={handleDeleteBatch}
+          >
+            批量删除
+          </button>
+          <button
             type="submit"
             onClick={handleQuery}
             className="ml-auto bg-blue-500 text-white px-6 py-1 rounded"
@@ -242,6 +275,7 @@ const CarInsuranceRate = () => {
         </div>
       </div>
       <ResultTable
+        rowSelection={rowSelection}
         loading={isTableLoading}
         data={queryResult}
         allCompanyOptions={allCompanyOptions}

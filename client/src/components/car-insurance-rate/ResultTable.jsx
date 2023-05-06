@@ -1,12 +1,13 @@
 import { Popconfirm, Space, Table } from "antd";
 import React, { useState } from "react";
-import CheckModal from "./check-car/CheckModal";
-import ViewModal from "./view-car/ViewModal";
-import EditModal from "./edit-car/EditModal";
-import { DeleteCar } from "../../services/car";
 import { toast } from "react-toastify";
+import { DeleteCar } from "../../services/car";
+import CheckModal from "./check-car/CheckModal";
+import EditModal from "./edit-car/EditModal";
+import ViewModal from "./view-car/ViewModal";
 
 const ResultTable = ({
+  rowSelection,
   data,
   loading,
   allCompanyOptions,
@@ -105,10 +106,12 @@ const ResultTable = ({
     <>
       <Table
         rowKey="carInsurId"
+        rowSelection={rowSelection}
         loading={loading}
         columns={columns}
         dataSource={data}
         scroll={{ y: 500 }}
+        pagination={{ pageSize: 5 }}
       />
       {isViewModalVisible && (
         <ViewModal

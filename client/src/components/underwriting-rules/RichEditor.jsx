@@ -1,6 +1,7 @@
 import { Editor, Toolbar } from "@wangeditor/editor-for-react";
 import "@wangeditor/editor/dist/css/style.css";
 import React, { useEffect, useState } from "react";
+import "./reset.css";
 
 const RichEditor = ({ value, onChange }) => {
   const [editor, setEditor] = useState(null);

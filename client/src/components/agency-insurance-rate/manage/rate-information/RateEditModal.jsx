@@ -1,11 +1,11 @@
-import { DatePicker, Modal, Table, InputNumber, Space } from "antd";
+import { DatePicker, InputNumber, Modal, Space, Table } from "antd";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import { MdArrowRightAlt } from "react-icons/md";
 const { RangePicker } = DatePicker;
 
-import MyButton from "../../../common/MyButton";
 import { createInputStyle } from "../../../../utils/styles";
+import MyButton from "../../../common/MyButton";
 
 const itemTitleStyle = "w-24 py-1 pr-2 text-right font-semibold text-gray-600";
 
@@ -170,12 +170,13 @@ const RateEditModal = ({
             <RangePicker
               defaultValue={[dayjs(validateDateStart), dayjs(validateDateEnd)]}
               style={{ flex: 1, paddingRight: "0.5rem" }}
-              onChange={(time) => {
-                const [start, end] = time;
+              onChange={(value) => {
+                const [from, to] =
+                  value?.map((_) => _.format("YYYY-MM-DD")) || [];
                 setCurRate((pre) => ({
                   ...pre,
-                  validateDateStart: dayjs(start).toDate(),
-                  validateDateEnd: dayjs(end).toDate(),
+                  validateDateStart: from,
+                  validateDateEnd: to,
                 }));
               }}
             />

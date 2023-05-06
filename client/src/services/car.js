@@ -34,6 +34,17 @@ const DeleteCar = (id) =>
     data: qs.stringify({ id: id }),
   });
 
+const DeleteBatchCar = (ids) => {
+  const params = new URLSearchParams();
+  params.append("ids", ids);
+
+  return axiosClient({
+    method: "post",
+    url: "/car-insurance-rate/deleteBatchInsurance",
+    params: params,
+  });
+};
+
 const CheckCar = (id) =>
   axiosClient({
     method: "post",
@@ -41,4 +52,4 @@ const CheckCar = (id) =>
     data: qs.stringify({ id: id }),
   });
 
-export { QueryCar, AddOrUpdateCar, DeleteCar, CheckCar };
+export { QueryCar, AddOrUpdateCar, DeleteCar, DeleteBatchCar, CheckCar };

@@ -6,6 +6,7 @@ import EditModal from "./edit-rule/EditModal";
 import ViewModal from "./view-rule/ViewModal";
 
 const ResultTable = ({
+  rowSelection,
   data,
   loading,
   getRules,
@@ -77,10 +78,12 @@ const ResultTable = ({
     <>
       <Table
         rowKey={"id"}
+        rowSelection={rowSelection}
         loading={loading}
         columns={columns}
         dataSource={data}
         scroll={{ y: 500 }}
+        pagination={{ pageSize: 5 }}
       />
       {isViewModalVisible && (
         <ViewModal

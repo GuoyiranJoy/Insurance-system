@@ -30,13 +30,14 @@ const RateParamsName = () => {
       setData(res.data.data);
     });
   }, []);
-  
+
   return (
     <Table
       rowKey={"id"}
       columns={columns}
       dataSource={data}
       scroll={{ y: 500 }}
+      pagination={{ pageSize: 8 }}
     />
   );
 };

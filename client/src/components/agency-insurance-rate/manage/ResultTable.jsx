@@ -8,6 +8,7 @@ import EditInformation from "./edit-information/EditInformation";
 import ViewInformation from "./view-information/ViewInformation";
 
 const ResultTable = ({
+  rowSelection,
   data,
   allCompanyNames,
   paramDiffNames,
@@ -39,7 +40,7 @@ const ResultTable = ({
       title: "序号",
       dataIndex: "insurId",
       key: "insurId",
-      width: 70,
+      width: 60,
     },
     {
       title: "保险公司",
@@ -47,11 +48,13 @@ const ResultTable = ({
       key: "companyId",
       render: (record) =>
         allCompanyNames.filter((_) => _.value === record)[0]?.label,
+      width: 100,
     },
     {
       title: "险种代码",
       dataIndex: "code",
       key: "code",
+      width: 100,
     },
     {
       title: "险种名称",
@@ -67,6 +70,7 @@ const ResultTable = ({
       title: "主附约",
       dataIndex: "mainOrVice",
       key: "mainOrVice",
+      width: 70,
     },
     {
       title: "险种类别",
@@ -77,6 +81,7 @@ const ResultTable = ({
       title: "启售日",
       dataIndex: "startSaleTime",
       key: "startSaleTime",
+      width: 120,
     },
     {
       title: "操作",
@@ -122,11 +127,13 @@ const ResultTable = ({
   return (
     <>
       <Table
+        rowKey={"insurId"}
+        rowSelection={rowSelection}
+        loading={loading}
         columns={columns}
         dataSource={data}
-        rowKey={"insurId"}
-        loading={loading}
         scroll={{ y: 500 }}
+        pagination={{ pageSize: 5 }}
       />
 
       {/* View Modal */}

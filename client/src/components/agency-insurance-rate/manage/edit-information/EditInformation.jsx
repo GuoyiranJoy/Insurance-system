@@ -1,11 +1,11 @@
 import {
   DatePicker,
+  Input,
+  InputNumber,
   Modal,
   Space,
   Table,
   Tabs,
-  InputNumber,
-  Input,
 } from "antd";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
@@ -128,14 +128,11 @@ const EditInformation = ({
   };
 
   const handleEditOk = () => {
-    if (activeKey === "1") {
-      UpdateInsurance(newRecord).then(() => {
-        toast.success("编辑险种信息成功!");
-        setIsModalVisible(false);
-        getInsurance();
-      });
-    } else {
-    }
+    UpdateInsurance(newRecord).then(() => {
+      toast.success("编辑险种信息成功!");
+      setIsModalVisible(false);
+      getInsurance();
+    });
   };
 
   const commonYear_columns = [
@@ -329,12 +326,13 @@ const EditInformation = ({
               <RangePicker
                 defaultValue={[dayjs(startSaleTime), dayjs(stopSaleTime)]}
                 style={{ flex: 1 }}
-                onChange={(time) => {
-                  const [start, end] = time;
+                onChange={(value) => {
+                  const [from, to] =
+                    value?.map((_) => _.format("YYYY-MM-DD")) || [];
                   setNewRecord((pre) => ({
                     ...pre,
-                    startSaleTime: dayjs(start).toDate(),
-                    stopSaleTime: dayjs(end).toDate(),
+                    startSaleTime: from,
+                    stopSaleTime: to,
                   }));
                 }}
               />
@@ -388,9 +386,11 @@ const EditInformation = ({
         <MyButton key="back" onClick={handleEditCancel}>
           {"关闭"}
         </MyButton>
-        <MyButton type="primary" onClick={handleEditOk}>
-          {"保存"}
-        </MyButton>
+        {activeKey === "1" && (
+          <MyButton type="primary" onClick={handleEditOk}>
+            {"保存"}
+          </MyButton>
+        )}
       </div>
       {/* year AddModal */}
       <Modal

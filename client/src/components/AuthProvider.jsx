@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("USER_KEY");
     UserLogout()
       .then((res) => {
-        toast.success(res.data.data, { autoClose: 2000 });
+        toast.success(res.data.msg, { autoClose: 2000 });
       })
       .then(() => {
         navigate("/login");

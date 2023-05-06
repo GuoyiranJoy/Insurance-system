@@ -1,13 +1,12 @@
-import { DatePicker, InputNumber, Modal, Table, Space } from "antd";
-import dayjs from "dayjs";
+import { DatePicker, InputNumber, Modal, Space, Table } from "antd";
 import React, { useState } from "react";
 import { MdArrowRightAlt } from "react-icons/md";
 const { RangePicker } = DatePicker;
 
-import { createInputStyle } from "../../../../utils/styles";
-import MyButton from "../../../common/MyButton";
 import { toast } from "react-toastify";
 import { AddOrUpdateRate } from "../../../../services/commision-rate";
+import { createInputStyle } from "../../../../utils/styles";
+import MyButton from "../../../common/MyButton";
 
 const itemTitleStyle = "w-24 py-1 pr-2 text-right font-semibold text-gray-600";
 
@@ -209,12 +208,13 @@ const RateCreateModal = ({
             <p className={itemTitleStyle}>使用期间</p>
             <RangePicker
               style={{ flex: 1, paddingRight: "0.5rem" }}
-              onChange={(time) => {
-                const [start, end] = time;
+              onChange={(value) => {
+                const [from, to] =
+                  value?.map((_) => _.format("YYYY-MM-DD")) || [];
                 setCurRate((pre) => ({
                   ...pre,
-                  validateDateStart: dayjs(start).toDate(),
-                  validateDateEnd: dayjs(end).toDate(),
+                  validateDateStart: from,
+                  validateDateEnd: to,
                 }));
               }}
             />

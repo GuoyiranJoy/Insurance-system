@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { GetBranch } from "../../services/branch";
 import { GetCompany } from "../../services/company";
 import { preProcessData } from "../../services/pre-process";
-import { QueryRule } from "../../services/rule";
+import { DeleteBatchRule, QueryRule } from "../../services/rule";
 import { buttonStyle, queryInputStyle } from "../../utils/styles";
 import ResultTable from "./ResultTable";
 import AddModal from "./add-rule/AddModal";
@@ -32,6 +32,17 @@ const UnderwritingRules = () => {
 
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [isTableLoading, setIsTableLoading] = useState(false);
+
+  const [selectedRules, setSelectedRules] = useState([]);
+
+  const onSelectChange = (newSelectedRowKeys) => {
+    setSelectedRules(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys: selectedRules,
+    onChange: onSelectChange,
+  };
 
   useEffect(() => {
     const req1 = GetCompany();
@@ -62,8 +73,11 @@ const UnderwritingRules = () => {
     );
   }, []);
 
-  const handleQuery = () => {
-    if (!queryConditions.companyNames || !queryConditions.companyNames.length) {
+  const handleQuery = (fromAdd) => {
+    if (
+      !fromAdd &&
+      (!queryConditions.companyNames || !queryConditions.companyNames.length)
+    ) {
       toast.warn("请选择保险公司!");
       return;
     }
@@ -81,6 +95,18 @@ const UnderwritingRules = () => {
       })
       .finally(() => {
         setIsTableLoading(false);
+      });
+  };
+
+  const handleDeleteBatch = () => {
+    DeleteBatchRule(selectedRules)
+      .then(() => {
+        toast.success("批量删除成功!");
+        setSelectedRules([]);
+        handleQuery();
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -203,10 +229,12 @@ const UnderwritingRules = () => {
                 style={{ flex: 1 }}
                 locale={locale}
                 onChange={(value) => {
+                  const [from, to] =
+                    value?.map((_) => _.format("YYYY-MM-DD")) || [];
                   setQueryConditions((pre) => ({
                     ...pre,
-                    from: value?.[0].toISOString(),
-                    to: value?.[1].toISOString(),
+                    from: from,
+                    to: to,
                   }));
                 }}
               />
@@ -262,6 +290,15 @@ const UnderwritingRules = () => {
             新增一笔
           </button>
           <button
+            disabled={!selectedRules.length}
+            className={
+              "mx-4 px-6 py-1 border-solid border-[1.5px] rounded transition-all duration-100 border-transparent bg-blue-500 text-white hover:bg-blue-500/90 disabled:bg-slate-400/50 disabled:cursor-not-allowed"
+            }
+            onClick={handleDeleteBatch}
+          >
+            批量删除
+          </button>
+          <button
             type="submit"
             onClick={handleQuery}
             className="ml-auto bg-blue-500 text-white px-6 py-1 rounded"
@@ -271,6 +308,7 @@ const UnderwritingRules = () => {
         </div>
       </div>
       <ResultTable
+        rowSelection={rowSelection}
         loading={isTableLoading}
         data={queryResult}
         allCompanyOptions={allCompanyOptions}

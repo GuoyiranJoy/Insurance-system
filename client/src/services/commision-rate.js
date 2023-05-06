@@ -1,3 +1,4 @@
+import axios from "axios";
 import axiosClient from ".";
 import qs from "qs";
 
@@ -15,6 +16,17 @@ const DeleteRate = (id) =>
     data: qs.stringify({ rateId: id }),
   });
 
+const DeleteBatchRate = (ids) => {
+  const params = new URLSearchParams();
+  params.append("ids", ids);
+
+  return axiosClient({
+    method: "post",
+    url: "/commission-rate/deleteBatchInsurance",
+    params: params,
+  });
+};
+
 const AddOrUpdateRate = (body) =>
   axiosClient({
     method: "post",
@@ -22,4 +34,11 @@ const AddOrUpdateRate = (body) =>
     data: body,
   });
 
-export { QueryRate, DeleteRate, AddOrUpdateRate };
+const ExportRate = () =>
+  axios({
+    method: "get",
+    url: "/api/commission-rate/export",
+    responseType: "blob",
+  });
+
+export { QueryRate, DeleteRate, DeleteBatchRate, AddOrUpdateRate, ExportRate };

@@ -5,7 +5,10 @@ import { BiArrowFromBottom } from "react-icons/bi";
 import { HiXMark } from "react-icons/hi2";
 import { toast } from "react-toastify";
 import { GetCompany } from "../../../services/company";
-import { QueryInsurance } from "../../../services/insurance";
+import {
+  DeleteBatchInsurance,
+  QueryInsurance,
+} from "../../../services/insurance";
 import { GetParamDiff } from "../../../services/param-diff";
 import { preProcessData } from "../../../services/pre-process";
 import { masterOptionsForQuery } from "../../../utils/options";
@@ -15,7 +18,6 @@ import {
   querySelectStyle,
 } from "../../../utils/styles";
 import ExportModal from "./ExportModal";
-import ExportRateModal from "./ExportRateModal";
 import ResultTable from "./ResultTable";
 import AddModal from "./add-information/AddModal";
 const { RangePicker } = DatePicker;
@@ -25,17 +27,28 @@ const ManageAgency = () => {
   const [paramDiffNames, setParamDiffNames] = useState([]);
 
   const [isExportModalVisible, setIsExportModalVisible] = useState(false);
-  const [isExportRateModalVisible, setIsExportRateModalVisible] =
-    useState(false);
+
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [isTableLoading, setIsTableLoading] = useState(false);
 
   const [isEveryCompanySelected, setIsEveryCompanySelected] = useState(false);
+
   const [queryConditions, setQueryConditions] = useState({
     companyIds: [],
   });
 
   const [queryResult, setQueryResult] = useState([]);
+
+  const [selectedInsurance, setSelectedInsurance] = useState([]);
+
+  const onSelectChange = (newSelectedRowKeys) => {
+    setSelectedInsurance(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys: selectedInsurance,
+    onChange: onSelectChange,
+  };
 
   useEffect(() => {
     const req1 = GetCompany();
@@ -61,8 +74,8 @@ const ManageAgency = () => {
     );
   }, []);
 
-  const handleQuery = () => {
-    if (!queryConditions.companyIds.length) {
+  const handleQuery = (fromAdd) => {
+    if (!fromAdd && !queryConditions.companyIds.length) {
       toast.warn("请选择保险公司!");
       return;
     }
@@ -74,6 +87,18 @@ const ManageAgency = () => {
       })
       .finally(() => {
         setIsTableLoading(false);
+      });
+  };
+
+  const handleDeleteBatch = () => {
+    DeleteBatchInsurance(selectedInsurance)
+      .then(() => {
+        toast.success("批量删除成功!");
+        setSelectedInsurance([]);
+        handleQuery();
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -255,11 +280,12 @@ const ManageAgency = () => {
               <RangePicker
                 style={{ flex: 1 }}
                 onChange={(value) => {
-                  const period = value?.map((_) => _.format("YYYY-MM-DD"));
+                  const [from, to] =
+                    value?.map((_) => _.format("YYYY-MM-DD")) || [];
                   setQueryConditions((pre) => ({
                     ...pre,
-                    startFrom: period[0],
-                    startTo: period[1],
+                    startFrom: from,
+                    startTo: to,
                   }));
                 }}
               />
@@ -288,7 +314,7 @@ const ManageAgency = () => {
             className={`${buttonStyle} flex gap-1 items-center`}
           >
             <BiArrowFromBottom />
-            <p>导出险种Excel</p>
+            <p>导出所有险种</p>
           </button>
           <button
             onClick={() => {
@@ -297,6 +323,15 @@ const ManageAgency = () => {
             className={buttonStyle}
           >
             新增一笔
+          </button>
+          <button
+            disabled={!selectedInsurance.length}
+            className={
+              "px-6 py-1 border-solid border-[1.5px] rounded transition-all duration-100 border-transparent bg-blue-500 text-white hover:bg-blue-500/90 disabled:bg-slate-400/50 disabled:cursor-not-allowed"
+            }
+            onClick={handleDeleteBatch}
+          >
+            批量删除
           </button>
           <button
             type="submit"
@@ -308,6 +343,7 @@ const ManageAgency = () => {
         </div>
       </div>
       <ResultTable
+        rowSelection={rowSelection}
         data={queryResult}
         allCompanyNames={allCompanyNames}
         paramDiffNames={paramDiffNames.slice(1)}
@@ -321,16 +357,12 @@ const ManageAgency = () => {
         paramDiffNames={paramDiffNames.slice(1)}
         results={queryResult}
       />
-      <ExportRateModal
-        visibility={isExportRateModalVisible}
-        setIsModalVisible={setIsExportRateModalVisible}
-        results={queryResult}
-      />
       <AddModal
         allCompanyNames={allCompanyNames}
         paramDiffNames={paramDiffNames.slice(1)}
         visibility={isAddModalVisible}
         setIsModalVisible={setIsAddModalVisible}
+        getInsurance={handleQuery}
       />
     </div>
   );

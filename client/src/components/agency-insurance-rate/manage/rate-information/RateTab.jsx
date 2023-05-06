@@ -4,11 +4,13 @@ import { IoMdCreate } from "react-icons/io";
 import { toast } from "react-toastify";
 import {
   AddOrUpdateRate,
+  DeleteBatchRate,
   DeleteRate,
+  ExportRate,
 } from "../../../../services/commision-rate";
+import RateCreateModal from "./RateCreateModal";
 import RateEditModal from "./RateEditModal";
 import RateViewModal from "./RateViewModal";
-import RateCreateModal from "./RateCreateModal";
 
 const RateTab = ({ insurId, rateParamNames, data, getRates }) => {
   const [curRate, setCurRate] = useState({});
@@ -16,6 +18,8 @@ const RateTab = ({ insurId, rateParamNames, data, getRates }) => {
   const [isViewModalVisible, setIsViewModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
+
+  const [selectedRates, setSelectedRates] = useState([]);
 
   const columns = [
     {
@@ -82,6 +86,40 @@ const RateTab = ({ insurId, rateParamNames, data, getRates }) => {
     },
   ];
 
+  const onSelectChange = (newSelectedRowKeys) => {
+    setSelectedRates(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys: selectedRates,
+    onChange: onSelectChange,
+  };
+
+  const handleDeleteBatch = () => {
+    DeleteBatchRate(selectedRates)
+      .then(() => {
+        toast.success("批量删除成功!");
+        setSelectedRates([]);
+        getRates();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleExport = () => {
+    ExportRate().then((res) => {
+      toast.success("导出成功!");
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${Date.now()}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    });
+  };
+
   const handleViewRate = (rate) => {
     setIsViewModalVisible(true);
     setCurRate(rate);
@@ -113,16 +151,38 @@ const RateTab = ({ insurId, rateParamNames, data, getRates }) => {
 
   return (
     <div>
-      <div
-        onClick={handleOpenCreateModal}
-        className="flex w-fit gap-1 items-center -mt-2 mb-2 ml-auto mr-2 px-3 py-1 bg-[#f1fee4] text-green-600 border-solid border-2 border-green-500 rounded-md"
-      >
-        <IoMdCreate className="text-lg" />
-        <p className="hover:cursor-pointer">新增费率</p>
+      <div className="flex pt-2">
+        <button
+          disabled={!selectedRates.length}
+          className={
+            "-mt-2 mb-2 px-3 py-1 border-solid border-[1.5px] rounded transition-all duration-100 border-transparent bg-blue-500 text-white hover:bg-blue-500/90 disabled:bg-slate-400/50 disabled:cursor-not-allowed"
+          }
+          onClick={handleDeleteBatch}
+        >
+          批量删除
+        </button>
+        <button
+          disabled={!data.length}
+          className={
+            "-mt-2 ml-3 mb-2 px-3 py-1 border-solid border-[1.5px] rounded transition-all duration-100 border-transparent bg-blue-500 text-white hover:bg-blue-500/90 disabled:bg-slate-400/50 disabled:cursor-not-allowed"
+          }
+          onClick={handleExport}
+        >
+          全部导出
+        </button>
+        <div
+          onClick={handleOpenCreateModal}
+          className="flex w-fit gap-1 items-center -mt-2 mb-2 ml-auto mr-2 px-3 py-1 bg-[#f1fee4] text-green-600 border-solid border-2 border-green-500 rounded-md"
+        >
+          <IoMdCreate className="text-lg" />
+          <p className="hover:cursor-pointer">新增费率</p>
+        </div>
       </div>
+
       <Table
-        rowKey={"rateId"}
         className="mb-4"
+        rowKey={"rateId"}
+        rowSelection={rowSelection}
         columns={columns}
         dataSource={data}
         pagination={false}

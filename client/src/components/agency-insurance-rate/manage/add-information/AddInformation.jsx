@@ -1,5 +1,4 @@
 import { DatePicker, Input, InputNumber, Modal, Space, Table } from "antd";
-import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -263,12 +262,13 @@ const AddInformation = ({ info, setInfo, allCompanyNames, paramDiffNames }) => {
           <p className={requiredFieldStyle}>销售期间</p>
           <RangePicker
             style={{ flex: 1 }}
-            onChange={(time) => {
-              const [start, end] = time;
+            onChange={(value) => {
+              const [from, to] =
+                value?.map((_) => _.format("YYYY-MM-DD")) || [];
               setInfo((pre) => ({
                 ...pre,
-                startSaleTime: dayjs(start).toDate(),
-                stopSaleTime: dayjs(end).toDate(),
+                startSaleTime: from,
+                stopSaleTime: to,
               }));
             }}
           />

@@ -35,7 +35,7 @@ const AddModal = ({
       if (res.data) {
         toast.success("新增核保规则成功!");
         setIsModalVisible(false);
-        getRules();
+        getRules("add");
       } else {
         toast.error("出错啦!");
       }

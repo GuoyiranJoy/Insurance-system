@@ -10,6 +10,7 @@ const AddModal = ({
   paramDiffNames,
   visibility,
   setIsModalVisible,
+  getInsurance,
 }) => {
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState({ commonYear: [] });
@@ -22,8 +23,9 @@ const AddModal = ({
     setLoading(true);
     AddInsurance(info)
       .then(() => {
-        toast.success("成功新增险种信息!");
+        toast.success("新增险种信息成功!");
         setIsModalVisible(false);
+        getInsurance("add");
       })
       .finally(() => {
         setLoading(false);

@@ -1,7 +1,6 @@
 import { Modal } from "antd";
 import React, { useState } from "react";
 import { AddOrUpdateCar } from "../../../services/car";
-import MyButton from "../../common/MyButton";
 import AddInformation from "./AddInformation";
 import { toast } from "react-toastify";
 
@@ -19,17 +18,20 @@ const AddModal = ({
     allBranchOptions.map((obj) => [obj.value, obj.label])
   );
 
-  const [info, setInfo] = useState({});
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+  const [car, setCar] = useState({
+    companyNameList: [],
+    branchNameList: [],
+    vehicleType: "家庭自用汽车6座以下",
+    insurTypeName: "交强险",
+  });
 
   const handleAdd = () => {
     const body = {
-      ...info,
-      companyName: info.companyName.map((_) => companyInt2StrMap.get(_)),
-      branchName: info.branchName.map((_) => branchInt2StrMap.get(_)),
+      ...car,
+      companyNameList: car.companyNameList?.map((_) =>
+        companyInt2StrMap.get(_)
+      ),
+      branchNameList: car.branchNameList?.map((_) => branchInt2StrMap.get(_)),
     };
     AddOrUpdateCar(body).then((res) => {
       if (res.data) {
@@ -48,20 +50,17 @@ const AddModal = ({
       title={"新增车险费率"}
       open={visibility}
       closable={false}
-      footer={[
-        <MyButton key="cancel" onClick={handleCancel}>
-          {"关闭"}
-        </MyButton>,
-        <MyButton type="primary" key="ok" onClick={handleAdd}>
-          {"确定"}
-        </MyButton>,
-      ]}
+      footer={null}
     >
       <AddInformation
-        info={info}
-        setInfo={setInfo}
+        curCar={car}
+        setCar={setCar}
         allCompanyOptions={allCompanyOptions}
         allBranchOptions={allBranchOptions}
+        submit={handleAdd}
+        closeModal={() => {
+          setIsModalVisible(false);
+        }}
       />
     </Modal>
   );
