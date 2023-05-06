@@ -23,6 +23,7 @@ const AddModal = ({
     branchNameList: [],
     vehicleType: "家庭自用汽车6座以下",
     insurTypeName: "交强险",
+    isChecked: 0,
   });
 
   const handleAdd = () => {

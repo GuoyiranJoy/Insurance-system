@@ -74,10 +74,12 @@ const ManageAgency = () => {
     );
   }, []);
 
-  const handleQuery = (fromAdd) => {
-    if (!fromAdd && !queryConditions.companyIds.length) {
-      toast.warn("请选择保险公司!");
-      return;
+  const handleQuery = (e, fromAdd) => {
+    if (typeof fromAdd === "undefined") {
+      if (!queryConditions.companyIds.length) {
+        toast.warn("请选择保险公司!");
+        return;
+      }
     }
     setIsTableLoading(true);
 

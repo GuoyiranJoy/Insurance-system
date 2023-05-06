@@ -25,7 +25,7 @@ const AddModal = ({
       .then(() => {
         toast.success("新增险种信息成功!");
         setIsModalVisible(false);
-        getInsurance("add");
+        getInsurance(undefined, "add");
       })
       .finally(() => {
         setLoading(false);

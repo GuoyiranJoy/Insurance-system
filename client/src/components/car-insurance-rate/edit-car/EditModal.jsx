@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import MyButton from "../../common/MyButton";
 import EditInformation from "./EditInformation";
 import { toast } from "react-toastify";
+import { preProcessData } from "../../../services/pre-process";
 import { AddOrUpdateCar } from "../../../services/car";
 
 const EditModal = ({
@@ -20,6 +21,10 @@ const EditModal = ({
   };
 
   const handleOk = () => {
+    if (Object.keys(preProcessData(car)).length < 11) {
+      toast.warn("请将内容填写完整!");
+      return;
+    }
     AddOrUpdateCar(car).then(() => {
       toast.success("编辑成功!");
       setIsModalVisible(false);

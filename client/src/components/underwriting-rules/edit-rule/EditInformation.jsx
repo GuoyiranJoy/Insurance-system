@@ -86,7 +86,7 @@ const EditInformation = ({
           defaultValue={dayjs(releaseDate)}
           disabledDate={(current) => current && current > dayjs().endOf("day")}
           onChange={(value) => {
-            setInfo((pre) => ({ ...pre, releaseDate: value.toISOString() }));
+            setInfo((pre) => ({ ...pre, releaseDate: value?.toISOString() }));
           }}
         />
       </div>

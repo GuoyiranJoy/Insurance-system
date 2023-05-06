@@ -10,7 +10,7 @@ const AddInformation = ({
   allCompanyOptions,
   allBranchOptions,
 }) => {
-  const { name, rule, companyName, branchName, releaseDate } = info;
+  const { name = "", rule, companyName, branchName, releaseDate } = info;
 
   const [isEveryCompanySelected, setIsEveryCompanySelected] = useState(false);
   const [isEveryBranchSelected, setIsEveryBranchSelected] = useState(false);

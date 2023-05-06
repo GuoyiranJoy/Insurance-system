@@ -1,6 +1,7 @@
 import { Modal } from "antd";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { preProcessData } from "../../../services/pre-process";
 import { AddOrUpdateRule } from "../../../services/rule";
 import MyButton from "../../common/MyButton";
 import EditInformation from "./EditInformation";
@@ -42,6 +43,10 @@ const EditModal = ({
       companyName: info.companyName?.map((_) => companyInt2StrMap.get(_)),
       branchName: info.branchName?.map((_) => branchInt2StrMap.get(_)),
     };
+    if (Object.keys(preProcessData(body)).length < 6) {
+      toast.warn("请将内容填写完整!");
+      return;
+    }
     AddOrUpdateRule(body).then((res) => {
       if (res.data) {
         toast.success("更新核保规则成功!");

@@ -1,9 +1,10 @@
 import { Modal } from "antd";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import { preProcessData } from "../../../services/pre-process";
 import { AddOrUpdateRule } from "../../../services/rule";
 import MyButton from "../../common/MyButton";
 import AddInformation from "./AddInformation";
-import { toast } from "react-toastify";
 
 const AddModal = ({
   visibility,
@@ -28,14 +29,18 @@ const AddModal = ({
   const handleAdd = () => {
     const body = {
       ...info,
-      companyName: info.companyName.map((_) => companyInt2StrMap.get(_)),
-      branchName: info.branchName.map((_) => branchInt2StrMap.get(_)),
+      companyName: info.companyName?.map((_) => companyInt2StrMap.get(_)),
+      branchName: info.branchName?.map((_) => branchInt2StrMap.get(_)),
     };
+    if (Object.keys(preProcessData(body)).length < 5) {
+      toast.warn("请将内容填写完整!");
+      return;
+    }
     AddOrUpdateRule(body).then((res) => {
       if (res.data) {
         toast.success("新增核保规则成功!");
         setIsModalVisible(false);
-        getRules("add");
+        getRules(undefined, "add");
       } else {
         toast.error("出错啦!");
       }

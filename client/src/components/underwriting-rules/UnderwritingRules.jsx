@@ -73,13 +73,15 @@ const UnderwritingRules = () => {
     );
   }, []);
 
-  const handleQuery = (fromAdd) => {
-    if (
-      !fromAdd &&
-      (!queryConditions.companyNames || !queryConditions.companyNames.length)
-    ) {
-      toast.warn("请选择保险公司!");
-      return;
+  const handleQuery = (e, fromAdd) => {
+    if (typeof fromAdd === "undefined") {
+      if (
+        !queryConditions.companyNames ||
+        !queryConditions.companyNames.length
+      ) {
+        toast.warn("请选择保险公司!");
+        return;
+      }
     }
     setIsTableLoading(true);
     const con = {
