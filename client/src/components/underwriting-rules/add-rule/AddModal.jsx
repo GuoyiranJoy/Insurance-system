@@ -48,7 +48,7 @@ const AddModal = ({
       key={`add modal ${visibility}`}
       title={"新增核保规则"}
       open={visibility}
-      onCancel={handleCancel}
+      closable={false}
       footer={[
         <MyButton key="cancel" onClick={handleCancel}>
           {"关闭"}

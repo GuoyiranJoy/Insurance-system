@@ -47,7 +47,7 @@ const AddModal = ({
       key={`add modal ${visibility}`}
       title={"新增车险费率"}
       open={visibility}
-      onCancel={handleCancel}
+      closable={false}
       footer={[
         <MyButton key="cancel" onClick={handleCancel}>
           {"关闭"}

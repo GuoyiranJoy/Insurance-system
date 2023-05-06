@@ -34,4 +34,11 @@ const DeleteCar = (id) =>
     data: qs.stringify({ id: id }),
   });
 
-export { QueryCar, AddOrUpdateCar, DeleteCar };
+const CheckCar = (id) =>
+  axiosClient({
+    method: "post",
+    url: "/car-insurance-rate/checkCarInsuranceRate",
+    data: qs.stringify({ id: id }),
+  });
+
+export { QueryCar, AddOrUpdateCar, DeleteCar, CheckCar };
