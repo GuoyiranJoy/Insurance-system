@@ -11,7 +11,7 @@
  Target Server Version : 50741 (5.7.41)
  File Encoding         : 65001
 
- Date: 30/04/2023 14:34:57
+ Date: 06/05/2023 14:50:07
 */
 
 SET NAMES utf8mb4;
@@ -78,7 +78,7 @@ CREATE TABLE `check_insur_rule` (
   `branch_name` json NOT NULL,
   `release_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of check_insur_rule
@@ -108,7 +108,7 @@ CREATE TABLE `commission_rate` (
   KEY `rate_param_insur_id` (`rate_param_name_id`),
   CONSTRAINT `rate_insur_id` FOREIGN KEY (`insur_id`) REFERENCES `insurance` (`insur_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `rate_param_insur_id` FOREIGN KEY (`rate_param_name_id`) REFERENCES `rate_param_name` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of commission_rate
@@ -167,6 +167,7 @@ CREATE TABLE `insurance` (
 -- Records of insurance
 -- ----------------------------
 BEGIN;
+INSERT INTO `insurance` (`insur_id`, `company_id`, `insur_full_name`, `insur_short_name`, `code`, `main_or_vice`, `param_diff_name_id`, `insur_type`, `start_sale_time`, `stop_sale_time`, `remark`, `common_year`) VALUES (1, 2, '60岁以上老人重疾险', '重疾', '11203', '主约', 3, '健康险-长期', '2019-11-30 00:00:00', '2021-11-30 00:00:00', '', '[{\"year\": \"5\", \"description\": \"null\"}, {\"year\": \"10\", \"description\": \"null\"}, {\"year\": \"15\", \"description\": \"null\"}]');
 INSERT INTO `insurance` (`insur_id`, `company_id`, `insur_full_name`, `insur_short_name`, `code`, `main_or_vice`, `param_diff_name_id`, `insur_type`, `start_sale_time`, `stop_sale_time`, `remark`, `common_year`) VALUES (4, 1, '人身威胁保险', '', '129402', '主约', 3, '健康险-长期', '2019-11-30 00:00:00', '2023-04-17 00:00:00', '', '[{\"year\": \"5\", \"description\": \"null\"}, {\"year\": \"10\", \"description\": \"null\"}, {\"year\": \"15\", \"description\": \"null\"}]');
 INSERT INTO `insurance` (`insur_id`, `company_id`, `insur_full_name`, `insur_short_name`, `code`, `main_or_vice`, `param_diff_name_id`, `insur_type`, `start_sale_time`, `stop_sale_time`, `remark`, `common_year`) VALUES (5, 1, '人身威胁保险', '', '129402', '主约', 4, '健康险-长期', '2019-11-30 00:00:00', '2023-04-17 00:00:00', '', '[{\"year\": \"5\", \"description\": \"null\"}, {\"year\": \"10\", \"description\": \"null\"}, {\"year\": \"15\", \"description\": \"null\"}]');
 COMMIT;
