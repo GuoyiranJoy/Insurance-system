@@ -91,7 +91,10 @@ const AddInformation = ({
           defaultValue={dayjs(releaseDate)}
           disabledDate={(current) => current && current > dayjs().endOf("day")}
           onChange={(value) => {
-            setInfo((pre) => ({ ...pre, releaseDate: dayjs(value).toDate() }));
+            setInfo((pre) => ({
+              ...pre,
+              releaseDate: value?.format("YYYY-MM-DD"),
+            }));
           }}
         />
       </div>

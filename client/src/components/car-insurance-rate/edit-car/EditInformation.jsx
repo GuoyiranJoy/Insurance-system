@@ -81,7 +81,7 @@ const EditInformation = ({
       commissionRateIn: rateIn,
       commissionRateOut: rateOut,
     }));
-  }, [rateIn, rateOut]);
+  }, [rateIn, rateOut, activeKey]);
 
   const handleSelectCompany = (value) => {
     setCar((pre) => ({

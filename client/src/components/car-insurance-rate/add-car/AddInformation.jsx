@@ -87,7 +87,7 @@ const AddInformation = ({
   ];
 
   const {
-    rateName,
+    rateName = "",
     companyNameList,
     branchNameList,
     vehicleType,
@@ -349,7 +349,7 @@ const AddInformation = ({
     },
     {
       key: "2",
-      label: "费率列表",
+      label: `费率列表-${insurTypeName}`,
       children: (
         <>
           <div className="-mt-4 mb-4">

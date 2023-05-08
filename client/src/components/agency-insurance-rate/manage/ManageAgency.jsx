@@ -297,11 +297,12 @@ const ManageAgency = () => {
               <RangePicker
                 style={{ flex: 1 }}
                 onChange={(value) => {
-                  const period = value?.map((_) => _.format("YYYY-MM-DD"));
+                  const [from, to] =
+                    value?.map((_) => _.format("YYYY-MM-DD")) || [];
                   setQueryConditions((pre) => ({
                     ...pre,
-                    stopFrom: period[0],
-                    stopTo: period[1],
+                    stopFrom: from,
+                    stopTo: to,
                   }));
                 }}
               />
