@@ -301,8 +301,8 @@ const ManageAgency = () => {
                     value?.map((_) => _.format("YYYY-MM-DD")) || [];
                   setQueryConditions((pre) => ({
                     ...pre,
-                    stopFrom: from,
-                    stopTo: to,
+                    endFrom: from,
+                    endTo: to,
                   }));
                 }}
               />

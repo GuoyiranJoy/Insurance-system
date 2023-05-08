@@ -70,7 +70,7 @@ const ResultTable = ({
       title: "主附约",
       dataIndex: "mainOrVice",
       key: "mainOrVice",
-      width: 70,
+      width: 80,
     },
     {
       title: "险种类别",
@@ -81,6 +81,12 @@ const ResultTable = ({
       title: "启售日",
       dataIndex: "startSaleTime",
       key: "startSaleTime",
+      width: 120,
+    },
+    {
+      title: "停售日",
+      dataIndex: "stopSaleTime",
+      key: "stopSaleTime",
       width: 120,
     },
     {
