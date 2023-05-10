@@ -104,7 +104,7 @@ const ViewInformation = ({ curCar }) => {
             dataSource={rateList}
             rowKey={"id"}
             pagination={false}
-            scroll={{ x: 800, y: 500 }}
+            scroll={{ x: 800, y: 300 }}
           />
         </div>
       ),

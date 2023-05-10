@@ -3,7 +3,7 @@ export const carRateColumns = [
     title: "序号",
     dataIndex: "id",
     key: "id",
-    width: 40,
+    width: 50,
     fixed: "left",
   },
   {

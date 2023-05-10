@@ -40,7 +40,7 @@ const AddInformation = ({
       title: "序号",
       dataIndex: "id",
       key: "id",
-      width: 40,
+      width: 50,
       fixed: "left",
     },
     {
@@ -159,7 +159,7 @@ const AddInformation = ({
   };
 
   const handleSelectAllCompanies = (e) => {
-    const all = allCompanyOptions.map((item) => item.label);
+    const all = allCompanyOptions.map((item) => item.value);
     if (e.target.checked) {
       setIsEveryCompanySelected(true);
       setCar((pre) => ({
@@ -176,7 +176,7 @@ const AddInformation = ({
   };
 
   const handleSelectAllBranches = (e) => {
-    const all = allBranchOptions.map((item) => item.label);
+    const all = allBranchOptions.map((item) => item.value);
     if (e.target.checked) {
       setIsEveryBranchSelected(true);
       setCar((pre) => ({
@@ -387,7 +387,7 @@ const AddInformation = ({
               dataSource={rateList}
               rowKey={"id"}
               pagination={false}
-              scroll={{ x: 800, y: 500 }}
+              scroll={{ x: 800, y: 300 }}
             />
           </div>
           <div className="ml-auto w-fit mb-4">
